@@ -1,6 +1,5 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
 
 :root {
   --background: #000000;
@@ -19,23 +18,31 @@
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-background-aboutme: var(--background-aboutme);
-  --color-background-exp: var(--background-exp);
-  --color-background-projects: var(--background-projects);
-  --color-foreground-yellow: var(--foreground-yellow);
-  --color-foreground-blue: var(--foreground-blue);
-  --color-foreground-aboutme-purple: var(--foreground-aboutme-purple);
-  --color-foreground-exp-blue: var(--foreground-exp-blue);
-  --color-foreground-projects-pink: var(--foreground-projects-pink);
+  --color-bg: var(--background);
+  --color-bg-aboutme: var(--background-aboutme);
+  --color-bg-exp: var(--background-exp);
+  --color-bg-proj: var(--background-projects);
+  --color-fg-yellow: var(--foreground-yellow);
+  --color-fg-blue: var(--foreground-blue);
+  --color-fg-aboutme-purple: var(--foreground-aboutme-purple);
+  --color-fg-exp-blue: var(--foreground-exp-blue);
+  --color-fg-proj-pink: var(--foreground-projects-pink);
   --font-body: var(--font-body);
   --font-exp-role: var(--font-exp-role);
   --font-title-bold: var(--font-title-bold);
   --font-title-impact: var(--font-title-impact);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground-yellow);
-  font-family: var(--font-body);
+html {
+  min-height: 100vh;
+  width: 100vw;
 }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg-yellow);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  width: 100vw;
+}
+
