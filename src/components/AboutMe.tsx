@@ -42,8 +42,8 @@ function AboutMe() {
       },
       scale: 1.5,
       keyframes: [
-        { scale: 2.5, duration: 0.7 },
-        { scale: 1.2, duration: 0.3 },
+        { scale: 2.5, duration: 0.5 },
+        { scale: 1.2, duration: 0.5 },
       ],
       scrollTrigger: {
         trigger: "#aboutme",
