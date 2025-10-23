@@ -19,7 +19,6 @@ function AboutMe() {
     }
 
     gsap.ticker.add(update);
-    gsap.registerPlugin(ScrollTrigger);
 
     // GSAP scroll animation for the sun
     gsap.to("#sun-svg", {
@@ -30,7 +29,6 @@ function AboutMe() {
         trigger: "#aboutme-section",
         start: "top top",
         end: "bottom bottom",
-        pinnedContainer: "#hero-text-svg",
         scrub: true,
       },
     });
