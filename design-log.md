@@ -71,3 +71,6 @@ When reviewing the design, I noticed that in the project cards, the font of the 
 I did not realize that the several fonts that I was using in my design couldn't be imported into my project repo because they are not availble for free, so I had to look for different fonts and change the font styles across my website design. Because the fonts of different part of the section had to look cohesive together, I also ended up changing the font styles in some another parts of the design as well. I imported and tested many font options before finalizing on my new set of font.
 ###### Time spent: ~45 min
 ![design image](assets/design-log-16.png)
+
+1 12
+1 15
