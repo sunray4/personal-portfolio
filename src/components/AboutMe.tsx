@@ -30,8 +30,8 @@ function AboutMe() {
       scale: 0.1,
       keyframes: [
         { scale: 0.1, duration: 0 },
-        { scale: 1.7, duration: 0.5 },
-        { scale: 0.2, duration: 0.5 },
+        { scale: 1.7, duration: 0.4, ease: "power1.out" },
+        { scale: 0.15, duration: 0.6, ease: "power1.in" },
       ],
       scrollTrigger: {
         trigger: "#aboutme",
@@ -45,7 +45,7 @@ function AboutMe() {
       fill: "var(--foreground-yellow)",
       scrollTrigger: {
         trigger: "#aboutme",
-        start: "40% top",
+        start: "45% top",
         end: "bottom bottom",
         scrub: true,
       },
