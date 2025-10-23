@@ -18,7 +18,7 @@
 }
 
 @theme inline {
-  --color-bg: var(--background);
+  --color-bg-default: var(--background);
   --color-bg-aboutme: var(--background-aboutme);
   --color-bg-exp: var(--background-exp);
   --color-bg-proj: var(--background-projects);
@@ -39,7 +39,7 @@ html {
 }
 
 body {
-  background: var(--color-bg);
+  background: var(--color-bg-default);
   color: var(--color-fg-yellow);
   font-family: var(--font-body);
   min-height: 100vh;
