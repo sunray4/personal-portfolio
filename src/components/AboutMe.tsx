@@ -10,10 +10,10 @@ import { getContrastColor } from "./contrastColor";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
 
 function AboutMe() {
-  const sunScale = 0.3;
+  const sunScale = 0.5; // final size of sun svg
   const lenisRef = useRef<any>(null)
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
-  const [sunMargin, setSunMargin] = React.useState<number>(0);
+  const [sunMargin, setSunMargin] = React.useState<number>(0); // margin to offset sun travel path position
 
   const getRemMargin = () => {
     const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
@@ -25,7 +25,7 @@ function AboutMe() {
     const sunHeightSvg = sunBBox.height * sunScale;
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
     const sunRadiusRem = sunHeightSvg / rootFontSize / 2;
-    return sunRadiusRem;
+    return sunRadiusRem * 0.85;
   };
   
   useEffect(() => {
@@ -38,6 +38,7 @@ function AboutMe() {
     // Make sun instantly visible when scrollTrigger becomes active
     gsap.set("#sun-svg", { autoAlpha: 1 });
 
+    // set sun travel path margin
     setSunMargin(getRemMargin());
 
     // Calculate the maximum safe endpoint for the sun based on viewport
@@ -53,30 +54,26 @@ function AboutMe() {
       console.log("sun width:", sunBBox.width * sunScale);
       console.log("sun height:", sunBBox.height * sunScale);
 
-      // Create a temporary element to get the full path
       const pathElement = document.getElementById("sun-travel-path-svg") as unknown as SVGGElement;
       if (!pathElement) return 0;
       
       const pathLength = (pathElement as SVGPathElement).getTotalLength();
-      
-      // Calculate effective viewport accounting for sunMargin
-      // const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-      // const sunMarginPx = sunMargin * rootFontSize;
-      // const effectiveViewportHeight = window.innerHeight - sunMarginPx;
       
       // Binary search to find the maximum safe endpoint
       let low = 0;
       let high = 1;
       let safeEnd = 0;
       
-      for (let i = 0; i < 20; i++) { // 20 iterations for precision
+      for (let i = 0; i < 20; i++) {
         const mid = (low + high) / 2;
         const point = (pathElement as SVGPathElement).getPointAtLength(pathLength * (1 - mid));
-        
-        const margin = sunRadius * 1.01; // 1% margin for safety
-        const isInBounds = 
-          point.x - margin >= 0 && 
-          point.x + margin <= window.innerWidth;
+
+        const margin = sunRadius * 1.1; // 10% margin for safety
+        const isInBounds =
+          point.x - margin >= 0 &&
+          point.x + margin <= window.innerWidth &&
+          point.y - margin >= -sunRadius &&
+          point.y + margin <= window.innerHeight;
         
         if (isInBounds) {
           safeEnd = mid;
@@ -101,7 +98,7 @@ function AboutMe() {
         keyframes: [
           { scale: 0.5, duration: 0, ease: "power2.out" },
           { scale: 1, duration: 0.5, ease: "power2.inOut" },
-          { scale: 0.3, duration: 0.5, ease: "power2.in" },
+          { scale: sunScale, duration: 0.5, ease: "power2.in" },
         ],
         scrollTrigger: {
           trigger: "#aboutme",
@@ -159,7 +156,7 @@ function AboutMe() {
       autoSplit: true,
       mask: "lines",
       onSplit: (self) => {
-        let split = gsap.from(self.lines, {
+        gsap.from(self.lines, {
           duration: 3,
           yPercent: 100,
           opacity: 0,
