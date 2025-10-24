@@ -76,4 +76,6 @@ I realized that the current color of the sun in the hero section doesnt really l
 ###### Time spent: ~7 min
 ![design image](assets/design-log-17.png)
 
-4.27
+Once I was done implementing the hero section, I realized that the design looked really plain on the actual website, and was lacking the wow factor I was hoping for. So I completely redesigned the hero from scratch!! I drew out the minimalist mountain landscape by hand and then edited the vector paths so everything looks smooth. The new vision is a sunrise over the mountains, where the sun moves and the background changes color. This would let me keep the animation of the sun moving that I had already coded up.
+###### Time spent: ~70 min
+![design image](assets/design-log-18.png)

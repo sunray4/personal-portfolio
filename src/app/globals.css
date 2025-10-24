@@ -2,12 +2,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
+  --background: #020315;
   --background-aboutme: #1A0F2E;
+  --blue: #C2FDFC;
+  --yellow: #FFF1A8;
   --background-exp: #0C1F26;
   --background-projects: #241A26;
-  --foreground-yellow: #FFF1A8;
-  --foreground-blue: #C2FDFC;
   --foreground-aboutme-purple: #F0A8FF;
   --foreground-exp-blue: #A8E4FF;
   --foreground-projects-pink: #FFAEF0;
@@ -20,10 +20,10 @@
 @theme inline {
   --color-bg-default: var(--background);
   --color-bg-aboutme: var(--background-aboutme);
+  --color-yellow: var(--yellow);
+  --color-blue: var(--blue);
   --color-bg-exp: var(--background-exp);
   --color-bg-proj: var(--background-projects);
-  --color-fg-yellow: var(--foreground-yellow);
-  --color-fg-blue: var(--foreground-blue);
   --color-fg-aboutme-purple: var(--foreground-aboutme-purple);
   --color-fg-exp-blue: var(--foreground-exp-blue);
   --color-fg-proj-pink: var(--foreground-projects-pink);
@@ -40,7 +40,7 @@ html {
 
 body {
   background: var(--color-bg-default);
-  color: var(--color-fg-yellow);
+  color: var(--color-yellow);
   font-family: var(--font-body);
   min-height: 100vh;
   width: 100vw;
