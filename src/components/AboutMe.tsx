@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from "react";
-import HeroTextSvg from '@/assets/hero-img.svg'
+import HeroTextSvg from "../assets/hero.svg";
 import gsap from 'gsap'
 import { ScrollTrigger, MotionPathPlugin } from "gsap/all";
 import { ReactLenis } from 'lenis/react'
@@ -30,8 +30,8 @@ function AboutMe() {
       scale: 0.1,
       keyframes: [
         { scale: 0.1, duration: 0 },
-        { scale: 1.7, duration: 0.4, ease: "power1.out" },
-        { scale: 0.15, duration: 0.6, ease: "power1.in" },
+        { scale: 1, duration: 0.4, ease: "power1.out" },
+        { scale: 0.1, duration: 0.6, ease: "power1.in" },
       ],
       scrollTrigger: {
         trigger: "#aboutme",
@@ -78,7 +78,7 @@ function AboutMe() {
                 <path id="sun-travel-path-svg" d="M1256,1 C937.381352,58.9333558 676.402891,172.388108 473.064619,341.364258 C269.726346,510.340407 112.226305,742.885655 0.564495153,1039" stroke="transparent"></path>
             </g>
         </svg>
-        <div className="flex justify-center items-center ">
+        <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center pointer-events-none">
           <HeroTextSvg id="hero-text-svg" className='max-w-full max-h-screen w-auto h-auto object-contain z-10'/>
         </div>
       </div>
