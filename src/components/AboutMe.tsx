@@ -11,9 +11,10 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
 
 function AboutMe() {
   const sunScale = 0.5; // final size of sun svg
+  const sunMargin = 1.1; // margin between sun edge and viewport edge
   const lenisRef = useRef<any>(null)
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
-  const [sunMargin, setSunMargin] = React.useState<number>(0); // margin to offset sun travel path position
+  const [sunPathMargin, setSunPathMargin] = React.useState<number>(0); // margin to offset sun travel path position
 
   const getRemMargin = () => {
     const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
@@ -28,8 +29,8 @@ function AboutMe() {
     const pathLength = (pathElement as SVGPathElement).getTotalLength();
 
     const sunBBox = sunElement.getBBox();
-    const sunHeightSvg = sunBBox.height * sunScale * 1.1;
-    const sunWidthSvg = sunBBox.width * sunScale * 1.1;
+    const sunHeightSvg = sunBBox.height * sunScale * sunMargin;
+    const sunWidthSvg = sunBBox.width * sunScale * sunMargin;
     
     // The path is in SVG coordinate space, and goes from x=55 to x=1440, so max x is 1440
     const pathMaxX = 1440; // Based on the path definition
@@ -58,16 +59,16 @@ function AboutMe() {
     console.log("sun width svg:", sunWidthSvg);
     
     // Margin in SVG units to shift the entire SVG container upward
-    const sunMargin = sunHeightSvg / 2 - yResult;
+    const margin = sunHeightSvg / 2 - yResult;
     
     // Convert to rem (removed the extra /2 division)
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const sunMarginRem = sunMargin / rootFontSize;
-    
-    console.log("sun margin (SVG units):", sunMargin);
-    console.log("sun margin (rem):", sunMarginRem);
-    
-    return sunMarginRem;
+    const marginRem = margin / rootFontSize;
+
+    console.log("sun margin (SVG units):", margin);
+    console.log("sun margin (rem):", marginRem);
+
+    return marginRem;
   };
   
   useEffect(() => {
@@ -81,7 +82,7 @@ function AboutMe() {
     gsap.set("#sun-svg", { autoAlpha: 1 });
 
     // set sun travel path margin
-    setSunMargin(getRemMargin());
+    setSunPathMargin(getRemMargin());
 
     // Calculate the maximum safe endpoint for the sun based on viewport
     const calculateSafeEndpoint = () => {
@@ -110,7 +111,7 @@ function AboutMe() {
         const mid = (low + high) / 2;
         const point = (pathElement as SVGPathElement).getPointAtLength(pathLength * (1 - mid));
 
-        const margin = sunRadius * 1.1; // 10% margin for safety
+        const margin = sunRadius * sunMargin;
         const isInBounds =
           point.x - margin >= 0 &&
           point.x + margin <= window.innerWidth &&
@@ -227,7 +228,7 @@ function AboutMe() {
     <div id="aboutme" className="relative h-[300vh]">
       <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
       <div className="sticky top-0 h-screen w-screen overflow-hidden ">
-        <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunPathMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {/* filter for sun shadow */}
             <defs>
               <filter id="sun-shadow" x="-200" y="-200" width="3000" height="3000" filterUnits="userSpaceOnUse">
