@@ -18,6 +18,5 @@ export function getContrastColor(rgb: string) {
     dy = Math.sign(dy) * minContrast;
     oy = y + dy;
   }
-  console.log(`${[oy, oy, oy]}`);
   return `rgb(${oy},${oy},${oy})`;
 }

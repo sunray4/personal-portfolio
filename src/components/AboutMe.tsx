@@ -3,15 +3,30 @@
 import React, { useEffect, useRef } from "react";
 import Mountains from "../assets/mountains.svg";
 import gsap from 'gsap'
-import { ScrollTrigger, MotionPathPlugin } from "gsap/all";
+import { ScrollTrigger, MotionPathPlugin, SplitText } from "gsap/all";
 import { ReactLenis } from 'lenis/react'
 import { getContrastColor } from "./contrastColor";
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
 
 function AboutMe() {
+  const sunScale = 0.3;
   const lenisRef = useRef<any>(null)
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
+  const [sunMargin, setSunMargin] = React.useState<number>(0);
+
+  const getRemMargin = () => {
+    const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
+    if (!sunElement) {
+      console.log("Sun element not found");
+      return 0;
+    }
+    const sunBBox = sunElement.getBBox();
+    const sunHeightSvg = sunBBox.height * sunScale;
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const sunRadiusRem = sunHeightSvg / rootFontSize / 2;
+    return sunRadiusRem;
+  };
   
   useEffect(() => {
     function update(time: number) {
@@ -20,27 +35,81 @@ function AboutMe() {
 
     gsap.ticker.add(update);
 
-    // animation for sun along motion path and scaling
-    gsap.to("#sun-svg", {
-      motionPath: {
-        path: "#sun-travel-path-svg",
-        align: "#sun-travel-path-svg",
-        alignOrigin: [0.5, 0.5],
-        start: 1,
-        end: 0,
-      },
-      keyframes: [
-        { scale: 0.5, duration: 0, ease: "power2.out" },
-        { scale: 1, duration: 0.5, ease: "power2.inOut" },
-        { scale: 0.3, duration: 0.5, ease: "power2.in" },
-      ],
-      scrollTrigger: {
-        trigger: "#aboutme",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: true,
-      },
-    });
+    // Make sun instantly visible when scrollTrigger becomes active
+    gsap.set("#sun-svg", { autoAlpha: 1 });
+
+    setSunMargin(getRemMargin());
+
+    // Calculate the maximum safe endpoint for the sun based on viewport
+    const calculateSafeEndpoint = () => {
+      const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
+      if (!sunElement) return 0;
+      
+      const sunBBox = sunElement.getBBox();
+
+      const sunRadius = Math.max(sunBBox.width * sunScale, sunBBox.height * sunScale) / 2;
+
+      console.log("sun radius:", sunRadius);
+      console.log("sun width:", sunBBox.width * sunScale);
+      console.log("sun height:", sunBBox.height * sunScale);
+
+      // Create a temporary element to get the full path
+      const pathElement = document.getElementById("sun-travel-path-svg") as unknown as SVGGElement;
+      if (!pathElement) return 0;
+      
+      const pathLength = (pathElement as SVGPathElement).getTotalLength();
+      
+      // Calculate effective viewport accounting for sunMargin
+      // const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      // const sunMarginPx = sunMargin * rootFontSize;
+      // const effectiveViewportHeight = window.innerHeight - sunMarginPx;
+      
+      // Binary search to find the maximum safe endpoint
+      let low = 0;
+      let high = 1;
+      let safeEnd = 0;
+      
+      for (let i = 0; i < 20; i++) { // 20 iterations for precision
+        const mid = (low + high) / 2;
+        const point = (pathElement as SVGPathElement).getPointAtLength(pathLength * (1 - mid));
+        
+        const margin = sunRadius * 1.01; // 1% margin for safety
+        const isInBounds = 
+          point.x - margin >= 0 && 
+          point.x + margin <= window.innerWidth;
+        
+        if (isInBounds) {
+          safeEnd = mid;
+          high = mid;
+        } else {
+          low = mid;
+        }
+      }
+      console.log("calculated safe end:", safeEnd);
+      return safeEnd;
+    };
+      
+      // animation for sun along motion path and scaling
+      gsap.to("#sun-svg", {
+        motionPath: {
+          path: "#sun-travel-path-svg",
+          align: "#sun-travel-path-svg",
+          alignOrigin: [0.5, 0.5],
+          start: 0,
+          end: 1 - calculateSafeEndpoint(),
+        },
+        keyframes: [
+          { scale: 0.5, duration: 0, ease: "power2.out" },
+          { scale: 1, duration: 0.5, ease: "power2.inOut" },
+          { scale: 0.3, duration: 0.5, ease: "power2.in" },
+        ],
+        scrollTrigger: {
+          trigger: "#aboutme",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+        },
+      });
 
     // animation for sun color change
     gsap.to(".sun-svg-path", {
@@ -83,6 +152,23 @@ function AboutMe() {
       },
     });
 
+    // animation for name reveal
+    SplitText.create("#name", {
+      type: "words,lines",
+      linesClass: "line",
+      autoSplit: true,
+      mask: "lines",
+      onSplit: (self) => {
+        let split = gsap.from(self.lines, {
+          duration: 3,
+          yPercent: 100,
+          opacity: 0,
+          stagger: 0.1,
+          ease: "expo.out",
+        });
+      }
+    });
+
     // animation for text color change
     // gsap.to("#name", {
     //   color: "var(--background)",
@@ -102,7 +188,7 @@ function AboutMe() {
     <div id="aboutme" className="relative h-[300vh]">
       <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
       <div className="sticky top-0 h-screen w-screen overflow-hidden ">
-        <svg className="absolute inset-0 overflow-visible" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {/* filter for sun shadow */}
             <defs>
               <filter id="sun-shadow" x="-200" y="-200" width="3000" height="3000" filterUnits="userSpaceOnUse">
@@ -127,7 +213,7 @@ function AboutMe() {
               <path d="M0,0 L1440,0 L1440,900 L0,900 L0,0 Z" id="path-1"></path>
             </defs>
             {/* svg of the sun itself */}
-            <g id="sun-svg" transform="translate(420, 90)" filter="url(#sun-shadow)">
+            <g id="sun-svg" transform="translate(420, 90)" filter="url(#sun-shadow)" style={{ opacity: 0 }}>
                 <path className="sun-svg-path" d="M271.665788,454.907737 C264.620691,454.209549 257.820289,453.032823 251.079053,451.542549 C240.275853,449.154353 229.813117,445.810175 219.692571,441.534194 C206.162454,435.817667 193.583999,428.621389 181.975547,419.930963 C175.704028,415.235992 169.77055,410.189912 164.232024,404.739826 C153.547448,394.225897 144.450946,382.611301 136.966746,369.878589 C129.565192,357.286609 124.041681,343.998438 120.30112,330.057034 C118.481381,323.27468 117.175031,316.39872 116.293341,309.447659 C115.255883,301.268657 114.807182,293.065397 115.07676,284.837058 C115.337323,276.883319 116.151871,268.976432 117.58427,261.124359 C119.87854,248.547619 123.682177,236.394407 128.946571,224.64082 C133.056608,215.46448 138.030543,206.721216 143.837972,198.395749 C149.92729,189.666198 156.809226,181.539428 164.512801,174.015282 C176.810666,162.003909 190.689212,151.944008 206.178572,143.837094 C220.654276,136.260716 235.95659,130.712123 252.099115,127.221108 C258.680901,125.797728 265.324121,124.713396 272.043166,124.02185 C277.915845,123.417406 283.796509,123.069487 289.704688,123.010633 C297.031436,122.937655 304.327945,123.23836 311.617841,123.974215 C325.795195,125.405274 339.559711,128.467781 352.941276,133.051862 C365.524161,137.362341 377.413099,143.001431 388.633795,149.879788 C400.290474,157.025389 410.926448,165.332056 420.488267,174.837516 C435.10774,189.370804 446.635687,205.822297 455.003397,224.230084 C460.653633,236.65991 464.568461,249.559687 466.874076,262.890152 C467.812468,268.315707 468.576708,273.773226 468.732227,279.276953 C468.890532,284.878942 469.092593,290.488227 468.953421,296.087223 C468.756892,303.991861 467.751825,311.837869 466.233202,319.617893 C464.219783,329.932851 461.211653,339.983382 457.163143,349.759607 C450.159536,366.671701 440.488782,382.09798 428.13591,396.040245 C414.772355,411.123201 399.08006,423.61999 381.045507,433.498449 C364.329386,442.654737 346.497372,449.072073 327.521265,452.665595 C320.059421,454.078637 312.553405,455.175743 304.947461,455.533073 C299.735579,455.777957 294.514755,456.030783 289.300003,456 C283.460932,455.959106 277.619283,455.670245 271.665788,454.907737 Z" fill="#FF6B6B" fillRule="nonzero"></path>
                 <path className="sun-svg-path" d="M22.1451893,284.696277 C23.7187415,282.393467 26.0762631,281.193065 28.3704732,279.921265 C46.9119879,269.642844 65.4546268,259.366229 83.997716,249.090359 C86.4863816,247.711244 88.9710545,246.325378 91.4724439,244.967223 C95.7881824,242.623964 100.488394,244.89237 102.065695,247.99743 C102.770892,249.38571 103.064615,250.812418 102.780318,252.356136 C101.868006,257.309803 100.884395,262.254756 100.132393,267.230776 C99.5564965,271.041546 99.2263787,274.889408 98.8994714,278.729362 C98.3258639,285.467125 98.3694784,292.22157 98.6161892,298.968852 C98.8451682,305.231098 99.4249901,311.474464 100.478782,317.664683 C101.188878,321.835962 102.030284,325.987379 102.830685,330.144605 C103.413189,333.170043 102.507154,335.708737 99.8878781,337.516797 C97.2203161,339.358142 94.3122165,339.478057 91.4345777,337.915361 C87.0692174,335.544821 82.743277,333.109124 78.3998484,330.702296 C66.7864708,324.267087 55.1715242,317.834428 43.5596175,311.396863 C37.9486557,308.286171 32.4084497,305.054485 26.7184151,302.079859 C19.7550176,298.439501 18.1580048,290.354397 22.1451893,284.696277 Z" fill="#FF6B6B" fillRule="nonzero"></path>
                 <path className="sun-svg-path" d="M434.10403,166.168505 C426.805246,158.669182 419.040105,151.82068 410.619153,145.686453 C406.465624,142.660855 402.149664,139.833743 397.827041,137.030472 C393.859142,134.45723 392.818827,130.055884 395.451863,126.361049 C396.564818,124.799272 398.178804,123.970334 400.004332,123.510886 C415.954656,119.496568 431.911478,115.506111 447.865833,111.50651 C455.789332,109.520174 463.718467,107.554294 471.631602,105.530653 C475.729972,104.482574 479.509074,104.932632 482.980467,107.368375 C486.70836,109.984109 489.033933,115.001044 487.543549,120.310169 C485.020582,129.297617 482.608796,138.313808 480.153698,147.318764 C476.350369,161.268749 472.513887,175.210548 468.764688,189.173928 C467.099821,195.374439 460.301534,196.201207 456.857535,193.641498 C456.032835,193.028573 455.292743,192.238418 454.717469,191.400996 C450.945606,185.910646 446.972071,180.561741 442.578619,175.514012 C439.846043,172.37448 436.987314,169.335991 434.10403,166.168505 Z" fill="#FF6B6B" fillRule="nonzero"></path>
@@ -140,7 +226,7 @@ function AboutMe() {
             </g>
             {/* svg of the travel path of the sun */}
             <g id="hero" stroke="none" fill="none" xmlnsXlink="#path-1" strokeWidth="1">
-                <path id="sun-travel-path-svg" d="M1340,99.998887 C926.666667,232.429539 657.577523,340.772952 532.732569,425.029127 C407.887615,509.285302 248.643425,667.608926 55,900" stroke="transparent"></path>
+                <path id="sun-travel-path-svg" d="M55,900 C136.995801,736.169162 303.961234,569.2225 555.8963,399.160013 C807.831365,229.097526 1102.5326,96.0441888 1440,1.8189894e-12" stroke="#fff"></path>
             </g>
         </svg>
         {/* name */}
