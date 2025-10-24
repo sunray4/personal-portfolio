@@ -21,11 +21,53 @@ function AboutMe() {
       console.log("Sun element not found");
       return 0;
     }
+
+    const pathElement = document.getElementById("sun-travel-path-svg") as unknown as SVGGElement;
+      if (!pathElement) return 0;
+      
+    const pathLength = (pathElement as SVGPathElement).getTotalLength();
+
     const sunBBox = sunElement.getBBox();
-    const sunHeightSvg = sunBBox.height * sunScale;
+    const sunHeightSvg = sunBBox.height * sunScale * 1.1;
+    const sunWidthSvg = sunBBox.width * sunScale * 1.1;
+    
+    // The path is in SVG coordinate space, and goes from x=55 to x=1440, so max x is 1440
+    const pathMaxX = 1440; // Based on the path definition
+    const xTarget = pathMaxX - sunWidthSvg / 2; // your x coordinate
+    let yResult = 0;
+
+    // binary search along the path's length
+    let start = 0;
+    let end = pathLength;
+
+    while (start <= end) {
+        const mid = (start + end) / 2;
+        const point = (pathElement as SVGPathElement).getPointAtLength(mid);
+
+        if (Math.abs(point.x - xTarget) < 0.01) {
+            yResult = point.y;
+            break;
+        } else if (point.x < xTarget) {
+            start = mid + 0.01;
+        } else {
+            end = mid - 0.01;
+        }
+    }
+    console.log("calculated y at x target:", yResult);
+    console.log("sun height svg:", sunHeightSvg);
+    console.log("sun width svg:", sunWidthSvg);
+    
+    // Margin in SVG units to shift the entire SVG container upward
+    const sunMargin = sunHeightSvg / 2 - yResult;
+    
+    // Convert to rem (removed the extra /2 division)
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const sunRadiusRem = sunHeightSvg / rootFontSize / 2;
-    return sunRadiusRem * 0.85;
+    const sunMarginRem = sunMargin / rootFontSize;
+    
+    console.log("sun margin (SVG units):", sunMargin);
+    console.log("sun margin (rem):", sunMarginRem);
+    
+    return sunMarginRem;
   };
   
   useEffect(() => {
@@ -223,7 +265,7 @@ function AboutMe() {
             </g>
             {/* svg of the travel path of the sun */}
             <g id="hero" stroke="none" fill="none" xmlnsXlink="#path-1" strokeWidth="1">
-                <path id="sun-travel-path-svg" d="M55,900 C136.995801,736.169162 303.961234,569.2225 555.8963,399.160013 C807.831365,229.097526 1102.5326,96.0441888 1440,1.8189894e-12" stroke="#fff"></path>
+                <path id="sun-travel-path-svg" d="M55,900 C136.995801,736.169162 303.961234,569.2225 555.8963,399.160013 C807.831365,229.097526 1102.5326,96.0441888 1440,1.8189894e-12" stroke="transparent"></path>
             </g>
         </svg>
         {/* name */}
