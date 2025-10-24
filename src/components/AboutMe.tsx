@@ -5,11 +5,13 @@ import Mountains from "../assets/mountains.svg";
 import gsap from 'gsap'
 import { ScrollTrigger, MotionPathPlugin } from "gsap/all";
 import { ReactLenis } from 'lenis/react'
+import { getContrastColor } from "./contrastColor";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 function AboutMe() {
   const lenisRef = useRef<any>(null)
+  const [nameColor, setNameColor] = React.useState<string>("#fafafa");
   
   useEffect(() => {
     function update(time: number) {
@@ -75,7 +77,22 @@ function AboutMe() {
         end: "bottom bottom",
         scrub: true,
       },
+      onUpdate: function () {
+        const currentColor = getComputedStyle(this.targets()[0]).backgroundColor;
+        setNameColor(getContrastColor(currentColor));
+      },
     });
+
+    // animation for text color change
+    // gsap.to("#name", {
+    //   color: "var(--background)",
+    //   scrollTrigger: {
+    //     trigger: "#aboutme",
+    //     start: "top top",
+    //     end: "bottom bottom",
+    //     scrub: true,
+    //   },
+    // });
 
     return () => gsap.ticker.remove(update);
   }, []);
@@ -128,7 +145,7 @@ function AboutMe() {
             </g>
         </svg>
         <div className="absolute top-[30%] left-0 w-screen flex justify-center z-10">
-          <p className="text-3xl">Joanna Lau</p>
+          <p id="name" className="text-3xl" style={{ color: nameColor }}>Joanna Lau</p>
         </div>
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-5">
           <Mountains id="mountains-svg" />
@@ -139,3 +156,4 @@ function AboutMe() {
 }
 
 export default AboutMe
+
