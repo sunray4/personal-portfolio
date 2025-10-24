@@ -5,7 +5,9 @@ import Mountains from "../assets/mountains.svg";
 import gsap from 'gsap'
 import { ScrollTrigger, MotionPathPlugin, SplitText } from "gsap/all";
 import { ReactLenis } from 'lenis/react'
-import { getContrastColor } from "./contrastColor";
+import { getContrastColor } from "../utils/contrastColor";
+import { getRemMargin } from "../utils/getRemMargin";
+import { calculateSafeEndpoint } from "../utils/calculateSafeEnd";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
 
@@ -16,62 +18,9 @@ function AboutMe() {
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
   const [sunPathMargin, setSunPathMargin] = React.useState<number>(0); // margin to offset sun travel path position
 
-  const getRemMargin = () => {
-    const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
-    if (!sunElement) {
-      console.log("Sun element not found");
-      return 0;
-    }
-
-    const pathElement = document.getElementById("sun-travel-path-svg") as unknown as SVGGElement;
-      if (!pathElement) return 0;
-      
-    const pathLength = (pathElement as SVGPathElement).getTotalLength();
-
-    const sunBBox = sunElement.getBBox();
-    const sunHeightSvg = sunBBox.height * sunScale * sunMargin;
-    const sunWidthSvg = sunBBox.width * sunScale * sunMargin;
-    
-    // The path is in SVG coordinate space, and goes from x=55 to x=1440, so max x is 1440
-    const pathMaxX = 1440; // Based on the path definition
-    const xTarget = pathMaxX - sunWidthSvg / 2; // your x coordinate
-    let yResult = 0;
-
-    // binary search along the path's length
-    let start = 0;
-    let end = pathLength;
-
-    while (start <= end) {
-        const mid = (start + end) / 2;
-        const point = (pathElement as SVGPathElement).getPointAtLength(mid);
-
-        if (Math.abs(point.x - xTarget) < 0.01) {
-            yResult = point.y;
-            break;
-        } else if (point.x < xTarget) {
-            start = mid + 0.01;
-        } else {
-            end = mid - 0.01;
-        }
-    }
-    console.log("calculated y at x target:", yResult);
-    console.log("sun height svg:", sunHeightSvg);
-    console.log("sun width svg:", sunWidthSvg);
-    
-    // Margin in SVG units to shift the entire SVG container upward
-    const margin = sunHeightSvg / 2 - yResult;
-    
-    // Convert to rem (removed the extra /2 division)
-    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const marginRem = margin / rootFontSize;
-
-    console.log("sun margin (SVG units):", margin);
-    console.log("sun margin (rem):", marginRem);
-
-    return marginRem;
-  };
-  
   useEffect(() => {
+    const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
+    const pathElement = document.getElementById("sun-travel-path-svg") as unknown as SVGGElement;
     function update(time: number) {
       lenisRef.current?.lenis?.raf(time * 1000);
     }
@@ -82,52 +31,9 @@ function AboutMe() {
     gsap.set("#sun-svg", { autoAlpha: 1 });
 
     // set sun travel path margin
-    setSunPathMargin(getRemMargin());
+    setSunPathMargin(getRemMargin({ sunScale, sunMargin, sunElement, pathElement }));
 
-    // Calculate the maximum safe endpoint for the sun based on viewport
-    const calculateSafeEndpoint = () => {
-      const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
-      if (!sunElement) return 0;
-      
-      const sunBBox = sunElement.getBBox();
-
-      const sunRadius = Math.max(sunBBox.width * sunScale, sunBBox.height * sunScale) / 2;
-
-      console.log("sun radius:", sunRadius);
-      console.log("sun width:", sunBBox.width * sunScale);
-      console.log("sun height:", sunBBox.height * sunScale);
-
-      const pathElement = document.getElementById("sun-travel-path-svg") as unknown as SVGGElement;
-      if (!pathElement) return 0;
-      
-      const pathLength = (pathElement as SVGPathElement).getTotalLength();
-      
-      // Binary search to find the maximum safe endpoint
-      let low = 0;
-      let high = 1;
-      let safeEnd = 0;
-      
-      for (let i = 0; i < 20; i++) {
-        const mid = (low + high) / 2;
-        const point = (pathElement as SVGPathElement).getPointAtLength(pathLength * (1 - mid));
-
-        const margin = sunRadius * sunMargin;
-        const isInBounds =
-          point.x - margin >= 0 &&
-          point.x + margin <= window.innerWidth &&
-          point.y - margin >= -sunRadius &&
-          point.y + margin <= window.innerHeight;
-        
-        if (isInBounds) {
-          safeEnd = mid;
-          high = mid;
-        } else {
-          low = mid;
-        }
-      }
-      console.log("calculated safe end:", safeEnd);
-      return safeEnd;
-    };
+   
       
       // animation for sun along motion path and scaling
       gsap.to("#sun-svg", {
@@ -136,7 +42,7 @@ function AboutMe() {
           align: "#sun-travel-path-svg",
           alignOrigin: [0.5, 0.5],
           start: 0,
-          end: 1 - calculateSafeEndpoint(),
+          end: 1 - calculateSafeEndpoint({ sunScale, sunMargin, sunElement, pathElement }),
         },
         keyframes: [
           { scale: 0.5, duration: 0, ease: "power2.out" },
@@ -208,17 +114,6 @@ function AboutMe() {
         });
       }
     });
-
-    // animation for text color change
-    // gsap.to("#name", {
-    //   color: "var(--background)",
-    //   scrollTrigger: {
-    //     trigger: "#aboutme",
-    //     start: "top top",
-    //     end: "bottom bottom",
-    //     scrub: true,
-    //   },
-    // });
 
     return () => gsap.ticker.remove(update);
   }, []);
