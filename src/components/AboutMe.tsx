@@ -6,7 +6,7 @@ import gsap from 'gsap'
 import { ScrollTrigger, MotionPathPlugin, SplitText } from "gsap/all";
 import { ReactLenis } from 'lenis/react'
 import { getContrastColor } from "../utils/contrastColor";
-import { getRemMargin } from "../utils/getRemMargin";
+import { getSunTravelPathMargin } from "../utils/getSunTravelPathMargin";
 import { calculateSafeEndpoint } from "../utils/calculateSafeEnd";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
@@ -31,7 +31,7 @@ function AboutMe() {
     gsap.set("#sun-svg", { autoAlpha: 1 });
 
     // set sun travel path margin
-    setSunPathMargin(getRemMargin({ sunScale, sunMargin, sunElement, pathElement }));
+    setSunPathMargin(getSunTravelPathMargin({ sunScale, sunMargin, sunElement, pathElement }));
 
    
       

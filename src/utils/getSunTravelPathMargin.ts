@@ -5,7 +5,7 @@ interface GetRemMarginParams {
     pathElement: SVGGElement | null;
 }
 
-export const getRemMargin = (params: GetRemMarginParams) => {
+export const getSunTravelPathMargin = (params: GetRemMarginParams) => {
     const { sunScale, sunMargin, sunElement, pathElement } = params;
 
     if (!sunElement) {
@@ -19,10 +19,9 @@ export const getRemMargin = (params: GetRemMarginParams) => {
     const sunBBox = sunElement.getBBox();
     const sunHeightSvg = sunBBox.height * sunScale * sunMargin;
     const sunWidthSvg = sunBBox.width * sunScale * sunMargin;
-    
-    // The path is in SVG coordinate space, and goes from x=55 to x=1440, so max x is 1440
-    const pathMaxX = 1440;
-    const xTarget = pathMaxX - sunWidthSvg / 2; 
+
+    // Since the SVG is stretched to full width, the width of the SVG matches the window width
+    const xTarget = window.innerWidth - sunWidthSvg / 2;
     let yResult = 0;
 
     // binary search along the path's length
