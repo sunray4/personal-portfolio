@@ -62,18 +62,18 @@ function AboutMe() {
     }, 0); // Start at beginning
 
     // Then: Text zoom out (70% - 100% of scroll)
-    // Get the center of the viewport for proper scaling
-    const viewportCenterX = window.innerWidth / 2;
-    const viewportCenterY = window.innerHeight / 2;
-    
+    // Animate the group containing the text using SVG transform attributes
+    // Using normalized coordinates (0-1) since we're using objectBoundingBox
     heroTimeline.fromTo('#svg-mask-text', 
       { 
-        scale: 700,
-        svgOrigin: `${viewportCenterX} ${viewportCenterY}`
+        attr: {
+          transform: 'translate(0.5,0.5) scale(100) translate(-0.5,-0.3)'
+        }
       },
       {
-        scale: 1,
-        svgOrigin: `${viewportCenterX} ${viewportCenterY}`,
+        attr: {
+          transform: 'translate(0.5,0.5) scale(1) translate(-0.5,-0.5)'
+        },
         duration: 0.3, // Takes 30% of the timeline
         ease: "power2.out"
       },
@@ -200,30 +200,30 @@ function AboutMe() {
           {/* Text mask overlay - fixed on top of hero */}
           <div id="mask" className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden z-40">
             {/* SVG for text mask */}
-            <svg className="absolute inset-0 w-full h-full">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
               <defs>
-                <mask id="text-cutout-mask">
-                  {/* White rectangle = show overlay */}
-                  <rect width="100%" height="100%" fill="white"/>
-                  {/* Black text = hide overlay (cutout) */}
-                  <text 
-                    id="svg-mask-text"
-                    x="50%" 
-                    y="50%" 
-                    textAnchor="middle" 
-                    dominantBaseline="middle" 
-                    className="text-[3rem] font-bold"
-                    fill="black"
-                  >
-                    A
-                  </text>
+                <mask id="text-cutout-mask" maskContentUnits="objectBoundingBox">
+                  <rect x="0" y="0" width="1" height="1" fill="white"/>
+                  <g id="svg-mask-text" fill="black">
+                    <text 
+                      x="0.5" 
+                      y="0.5" 
+                      textAnchor="middle" 
+                      dominantBaseline="middle" 
+                      fontSize="0.5"
+                      fontWeight="bold"
+                    >
+                      A
+                    </text>
+                  </g>
                 </mask>
               </defs>
-              {/* Overlay with mask applied */}
               <rect 
-                width="100%" 
-                height="100%" 
-                fill="var(--bg-proj)" 
+                x="0" 
+                y="0" 
+                width="100" 
+                height="100" 
+                fill="var(--background-projects)" 
                 mask="url(#text-cutout-mask)"
               />
             </svg>
