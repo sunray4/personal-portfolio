@@ -57,27 +57,26 @@ function AboutMe() {
         { scale: 1, duration: 0.5, ease: "power2.inOut" },
         { scale: sunScale, duration: 0.5, ease: "power2.in" },
       ],
-      duration: 0.9, // Takes 70% of the timeline
+      duration: 0.9,
       ease: "none"
-    }, 0); // Start at beginning
+    }, 0);
 
-    // Then: Text zoom out (70% - 100% of scroll)
-    // Animate the group containing the text using SVG transform attributes
+    // animation for aboutme text zoom out
     // Using normalized coordinates (0-1) since we're using objectBoundingBox
-    heroTimeline.fromTo('#svg-mask-text', 
+    heroTimeline.fromTo('#aboutme-mask-text', 
       { 
         attr: {
-          transform: 'translate(0.5,0.5) scale(100) translate(-0.5,-0.3)'
+          transform: 'translate(0.5,0.5) scale(120) translate(-0.5,-0.5)'
         }
       },
       {
         attr: {
           transform: 'translate(0.5,0.5) scale(1) translate(-0.5,-0.5)'
         },
-        duration: 0.3, // Takes 30% of the timeline
+        duration: 0.3,
         ease: "power2.out"
       },
-      0.9 // Start at 70% point (after sun finishes)
+      0.9
     );
 
     // animation for sun color change
@@ -197,35 +196,33 @@ function AboutMe() {
             <Mountains id="mountains-svg" />
           </div>
           
-          {/* Text mask overlay - fixed on top of hero */}
+          {/* about me text mask overlay on top of hero */}
           <div id="mask" className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden z-40">
-            {/* SVG for text mask */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <mask id="text-cutout-mask" maskContentUnits="objectBoundingBox">
-                  <rect x="0" y="0" width="1" height="1" fill="white"/>
-                  <g id="svg-mask-text" fill="black">
+              <mask id="aboutme-cutout-mask" maskContentUnits="objectBoundingBox">
+                <rect x="0" y="0" width="1" height="1" fill="white"/>
+                <g id="aboutme-mask-text" fill="black">
                     <text 
                       x="0.5" 
                       y="0.5" 
                       textAnchor="middle" 
                       dominantBaseline="middle" 
-                      fontSize="0.5"
+                      fontSize="0.05"
                       fontWeight="bold"
+                      fontFamily="var(--font-title-impact)"
                     >
-                      A
+                      About me
                     </text>
                   </g>
-                </mask>
-              </defs>
+              </mask>
               <rect 
-                x="0" 
-                y="0" 
-                width="100" 
-                height="100" 
-                fill="var(--background-projects)" 
-                mask="url(#text-cutout-mask)"
-              />
+                  x="0" 
+                  y="0" 
+                  width="100" 
+                  height="100" 
+                  fill="var(--background-projects)" 
+                  mask="url(#aboutme-cutout-mask)"
+                />
             </svg>
           </div>
         </div>
