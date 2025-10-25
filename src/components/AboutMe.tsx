@@ -8,6 +8,7 @@ import { ReactLenis } from 'lenis/react'
 import { getContrastColor } from "../utils/contrastColor";
 import { getSunTravelPathMargin } from "../utils/getSunTravelPathMargin";
 import { calculateSafeEndpoint } from "../utils/calculateSafeEnd";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
 
@@ -79,6 +80,17 @@ function AboutMe() {
       0.9
     );
 
+    // animation for photo to fade in with the mask
+    heroTimeline.fromTo('.aboutme-element',
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      },
+      0.9
+    );
+
     // animation for sun color change
     gsap.to(".sun-svg-path", {
       fill: "var(--yellow)",
@@ -142,7 +154,7 @@ function AboutMe() {
 
   
   return (
-    <div id="aboutme" className="min-h-screen">
+    <div id="hero+aboutme" className="min-h-screen">
       <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
       <div id="hero" className="relative h-[300vh]">
         <div id="hero-bg" className="fixed inset-0 h-screen w-screen overflow-hidden object-cover">
@@ -197,33 +209,51 @@ function AboutMe() {
           </div>
           
           {/* about me text mask overlay on top of hero */}
-          <div id="mask" className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden z-40">
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-              <mask id="aboutme-cutout-mask" maskContentUnits="objectBoundingBox">
-                <rect x="0" y="0" width="1" height="1" fill="white"/>
-                <g id="aboutme-mask-text" fill="black">
-                    <text 
-                      x="0.5" 
-                      y="0.5" 
-                      textAnchor="middle" 
-                      dominantBaseline="middle" 
-                      fontSize="0.05"
-                      fontWeight="bold"
-                      fontFamily="var(--font-title-impact)"
-                    >
-                      About me
-                    </text>
-                  </g>
-              </mask>
-              <rect 
-                  x="0" 
-                  y="0" 
-                  width="100" 
-                  height="100" 
-                  fill="var(--background-projects)" 
-                  mask="url(#aboutme-cutout-mask)"
-                />
-            </svg>
+          <div id="aboutme" className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden z-40 gap-x-20">
+            <Image id="aboutme-photo" className="aboutme-element z-50" src="/photoframe.webp" alt="profile picture" width={500} height={500} />
+            <div>
+              <svg className="" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+                <mask id="aboutme-cutout-mask" maskContentUnits="objectBoundingBox">
+                  <rect x="0" y="0" width="1" height="1" fill="white"/>
+                  <g id="aboutme-mask-text" fill="black">
+                      <text 
+                        x="0.5" 
+                        y="0.5" 
+                        textAnchor="middle" 
+                        dominantBaseline="middle" 
+                        fontSize="0.05"
+                        fontWeight="bold"
+                        fontFamily="var(--font-title-impact)"
+                      >
+                        About me
+                      </text>
+                    </g>
+                </mask>
+                <rect 
+                    x="0" 
+                    y="0" 
+                    width="100" 
+                    height="100" 
+                    fill="var(--background-projects)" 
+                    mask="url(#aboutme-cutout-mask)"
+                  />
+              </svg>
+              <div className="aboutme-element z-50 flex flex-col gap-y-2">
+                <p>
+                  Hey!! My name is Joanna and I’m a CS student at the University of Waterloo.
+                </p>
+                <p>
+                  I love going to hackathons, and I’m an active contributor to open source software.
+                </p>
+                <p>
+                  In my spare time, I love to go cycling, read and cook comfort meals.
+                </p>
+                <p>
+                  Thanks for checking out my website!!
+                </p>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
