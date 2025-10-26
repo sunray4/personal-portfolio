@@ -144,12 +144,11 @@ function AboutMe() {
       "#pfp",
       {
         x: "-40%",
-        // ease: "power2.in",
+        ease: "power2.out",
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `${screenHeightBeforeExperienceTitle}% bottom`,
           end: `${screenHeightAfterXTranslate}% bottom`,
-          // end: "bottom bottom",
           scrub: true,
         },
       },
@@ -159,12 +158,11 @@ function AboutMe() {
       "#bio",
       {
         x: "70%",
-        // ease: "power2.in",
+        ease: "power2.out",
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `${screenHeightBeforeExperienceTitle}% bottom`,
           end: `${screenHeightAfterXTranslate}% bottom`,
-          // end: "bottom bottom",
           scrub: true,
         },
       },
