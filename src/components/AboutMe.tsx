@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Mountains from "../assets/mountains.svg";
 import gsap from 'gsap'
 import { ScrollTrigger, MotionPathPlugin, SplitText } from "gsap/all";
-import { ReactLenis } from 'lenis/react'
 import { getContrastColor } from "../utils/contrastColor";
 import { getSunTravelPathMargin } from "../utils/getSunTravelPathMargin";
 import { calculateSafeEndpoint } from "../utils/calculateSafeEnd";
+import { useGSAP } from '@gsap/react';
 import Image from "next/image";
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, SplitText);
+gsap.registerPlugin(useGSAP, ScrollTrigger, MotionPathPlugin, SplitText);
 
 function AboutMe() {
   const sunScale = 0.5; // final size of sun svg
@@ -20,18 +20,13 @@ function AboutMe() {
   const screenHeightAfterAboutMe = 55; // percentage of screen height scrolled through when about me section is fully visible
   const screenHeightBeforeExperienceTitle = 65; // percentage of screen height scrolled through before experience title starts appearing
   const screenHeightAfterXTranslate = 75; // percentage of screen height scrolled through when pfp and bio finish x translation
-  const lenisRef = useRef<any>(null)
+  // const lenisRef = useRef<any>(null);
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
   const [sunPathMargin, setSunPathMargin] = React.useState<number>(0); // margin to offset sun travel path position
 
-  useEffect(() => {
+  useGSAP(() => {
     const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
     const pathElement = document.getElementById("sun-travel-path-svg") as unknown as SVGGElement;
-    function update(time: number) {
-      lenisRef.current?.lenis?.raf(time * 1000);
-    }
-
-    gsap.ticker.add(update);
 
     // set sun travel path margin
     setSunPathMargin(getSunTravelPathMargin({ sunScale, sunMargin, sunElement, pathElement }));
@@ -228,20 +223,19 @@ function AboutMe() {
         },
       },
     );
+    
 
     // Make aboutme section instantly visible when scrollTrigger becomes active
     gsap.set("#aboutme", { autoAlpha: 1 });
 
     // Make sun instantly visible when scrollTrigger becomes active
     gsap.set("#sun-svg", { autoAlpha: 1 });
-
-    return () => gsap.ticker.remove(update);
   }, []);
 
   
   return (
-    <div className="min-h-screen">
-      <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
+    <div className="min-h-screen" style={{opacity: 1}}>
+      
       <div id="hero+aboutme" className="relative h-[1500vh]">
         <div id="hero" className="fixed inset-0 h-screen w-screen overflow-hidden object-cover">
           <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunPathMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
