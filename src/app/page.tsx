@@ -3,7 +3,7 @@
 import AboutMe from '@/components/AboutMe';
 import Experience from '@/components/Experience';
 import { ReactLenis, type LenisRef } from 'lenis/react'
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -11,6 +11,7 @@ gsap.registerPlugin(useGSAP);
 
 export default function Home() {
   const lenisRef = useRef<LenisRef>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   
   useGSAP(() => {
     function update(time: number) {
@@ -22,10 +23,10 @@ export default function Home() {
     return () => {
       gsap.ticker.remove(update);
     };
-  }, { scope: lenisRef });
+  }, { scope: containerRef, dependencies: [] });
 
   return (
-    <div>
+    <div ref={containerRef}>
       <ReactLenis 
         root 
         options={{ autoRaf: false }} 

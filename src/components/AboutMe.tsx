@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from "react";
+import React from "react";
 import Mountains from "../assets/mountains.svg";
 import gsap from 'gsap'
 import { ScrollTrigger, MotionPathPlugin, SplitText } from "gsap/all";
@@ -13,6 +13,7 @@ import Image from "next/image";
 gsap.registerPlugin(useGSAP, ScrollTrigger, MotionPathPlugin, SplitText);
 
 function AboutMe() {
+  const containerRef = React.useRef<HTMLDivElement>(null);
   const sunScale = 0.5; // final size of sun svg
   const sunMargin = 1.1; // margin between sun edge and viewport edge
   const aboutMeTitleTopPosition = 0.23; // top position of about me title as a fraction of viewport height
@@ -20,11 +21,11 @@ function AboutMe() {
   const screenHeightAfterAboutMe = 55; // percentage of screen height scrolled through when about me section is fully visible
   const screenHeightBeforeExperienceTitle = 65; // percentage of screen height scrolled through before experience title starts appearing
   const screenHeightAfterXTranslate = 75; // percentage of screen height scrolled through when pfp and bio finish x translation
-  // const lenisRef = useRef<any>(null);
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
   const [sunPathMargin, setSunPathMargin] = React.useState<number>(0); // margin to offset sun travel path position
 
   useGSAP(() => {
+    if (!containerRef.current) return;
     const sunElement = document.getElementById("sun-svg") as unknown as SVGGElement;
     const pathElement = document.getElementById("sun-travel-path-svg") as unknown as SVGGElement;
 
@@ -70,6 +71,7 @@ function AboutMe() {
       { attr: { "flood-color": "#E95757" } },
       {
         attr: { "flood-color": "#BAA433" },
+        lazy: false,
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: "7% top",
@@ -125,6 +127,7 @@ function AboutMe() {
       {
         scale: 1,
         ease: "power2.out",
+        lazy: false,
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `${screenHeightAfterSunTravel}% bottom`,
@@ -186,6 +189,7 @@ function AboutMe() {
       },
       {
         scale: 85,
+        lazy: false,
         ease: "power2.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
@@ -230,13 +234,13 @@ function AboutMe() {
 
     // Make sun instantly visible when scrollTrigger becomes active
     gsap.set("#sun-svg", { autoAlpha: 1 });
-  }, []);
+  }, { scope: containerRef, dependencies: [] });
 
   
   return (
-    <div className="min-h-screen" style={{opacity: 1}}>
+    <div ref={containerRef} className="min-h-screen" style={{opacity: 1}}>
       
-      <div id="hero+aboutme" className="relative h-[1500vh]">
+      <div  id="hero+aboutme" className="relative h-[1500vh]">
         <div id="hero" className="fixed inset-0 h-screen w-screen overflow-hidden object-cover">
           <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunPathMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {/* filter for sun shadow */}
