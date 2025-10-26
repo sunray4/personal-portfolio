@@ -16,9 +16,10 @@ function AboutMe() {
   const sunScale = 0.5; // final size of sun svg
   const sunMargin = 1.1; // margin between sun edge and viewport edge
   const aboutMeTitleTopPosition = 0.23; // top position of about me title as a fraction of viewport height
-  const screenHeightAfterSunTravel = 75; // percentage of screen height scrolled through when sun reaches final position
-  const screenHeightAfterAboutMe = 90; // percentage of screen height scrolled through when about me section is fully visible
-  const screenHeightAfterXTranslate = 95; // percentage of screen height scrolled through when pfp and bio finish x translation
+  const screenHeightAfterSunTravel = 40; // percentage of screen height scrolled through when sun reaches final position
+  const screenHeightAfterAboutMe = 55; // percentage of screen height scrolled through when about me section is fully visible
+  const screenHeightBeforeExperienceTitle = 65; // percentage of screen height scrolled through before experience title starts appearing
+  const screenHeightAfterXTranslate = 75; // percentage of screen height scrolled through when pfp and bio finish x translation
   const lenisRef = useRef<any>(null)
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
   const [sunPathMargin, setSunPathMargin] = React.useState<number>(0); // margin to offset sun travel path position
@@ -62,7 +63,7 @@ function AboutMe() {
       fill: "var(--yellow)",
       scrollTrigger: {
         trigger: "#hero+aboutme",
-        start: "25% top",
+        start: "7% top",
         end: `${screenHeightAfterSunTravel}% bottom`,
         scrub: true,
       },
@@ -76,7 +77,7 @@ function AboutMe() {
         attr: { "flood-color": "#BAA433" },
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: "25% top",
+          start: "7% top",
           end: `${screenHeightAfterSunTravel}% bottom`,
           scrub: true,
         },
@@ -88,7 +89,7 @@ function AboutMe() {
       backgroundColor: "var(--blue)",
       scrollTrigger: {
         trigger: "#hero+aboutme",
-        start: "7% top",
+        start: "3% top",
         end: `${screenHeightAfterSunTravel}% bottom`,
         scrub: true,
       },
@@ -122,10 +123,10 @@ function AboutMe() {
       }
     });
 
-    // animation for aboutme section zoom in
+    // animation for transition into aboutme section
     gsap.fromTo(
       "#aboutme",
-      { scale: 1000, transformOrigin: `center ${aboutMeTitleTopPosition * 100}%` },
+      { scale: 400, transformOrigin: `center ${aboutMeTitleTopPosition * 100}%` },
       {
         scale: 1,
         ease: "power2.out",
@@ -142,12 +143,13 @@ function AboutMe() {
     gsap.to(
       "#pfp",
       {
-        x: "-20%",
-        ease: "power2.out",
+        x: "-40%",
+        // ease: "power2.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: `${screenHeightAfterAboutMe}% bottom`,
+          start: `${screenHeightBeforeExperienceTitle}% bottom`,
           end: `${screenHeightAfterXTranslate}% bottom`,
+          // end: "bottom bottom",
           scrub: true,
         },
       },
@@ -156,12 +158,13 @@ function AboutMe() {
     gsap.to(
       "#bio",
       {
-        x: "50%",
-        ease: "power2.out",
+        x: "70%",
+        // ease: "power2.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: `${screenHeightAfterAboutMe}% bottom`,
+          start: `${screenHeightBeforeExperienceTitle}% bottom`,
           end: `${screenHeightAfterXTranslate}% bottom`,
+          // end: "bottom bottom",
           scrub: true,
         },
       },
@@ -170,13 +173,13 @@ function AboutMe() {
     gsap.to(
       "#aboutme",
       {
-        scale: 3,
+        scale: 75,
         transformOrigin: "center 60%",
-        ease: "power2.out",
+        ease: "power2.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: `${screenHeightAfterAboutMe}% bottom`,
-          end: `bottom bottom`,
+          start: `${screenHeightBeforeExperienceTitle + 4}% bottom`,
+          end: `90% bottom`,
           scrub: true,
         },
       },
@@ -185,38 +188,44 @@ function AboutMe() {
     gsap.fromTo(
       "#experience-title",
       {
-        // opacity: 1,
-        scale: 0.6,
+        scale: 0.2,
         transformOrigin: "center center"
       },
       {
-        // opacity: 1,
-        scale: 100,
-        ease: "power2.out",
+        scale: 85,
+        ease: "power2.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: `${screenHeightAfterXTranslate}% bottom`,
-          end: "bottom bottom",
+          start: `${screenHeightBeforeExperienceTitle + 4}% bottom`,
+          end: "90% bottom",
           scrub: true,
         },
       },
     );
 
-    gsap.fromTo(
+    gsap.to(
       "#experience-title",
       {
-        opacity: 0,
-        // scale: 0.1,
-        // transformOrigin: "center center"
-      },
-      {
         opacity: 1,
-        // scale: 100,
-        ease: "power2.out",
+        ease: "power1.out",
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: `${screenHeightAfterXTranslate - 1}% bottom`,
-          end: `${screenHeightAfterXTranslate}% bottom`,
+          start: `${screenHeightBeforeExperienceTitle + 5}% bottom`,
+          end: `${screenHeightBeforeExperienceTitle + 6}% bottom`,
+          scrub: true,
+        },
+      },
+    );
+
+    gsap.to(
+      "#experience-title",
+      {
+        x: "-230%",
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: "#hero+aboutme",
+          start: `90% bottom`,
+          end: `bottom bottom`,
           scrub: true,
         },
       },
@@ -235,7 +244,7 @@ function AboutMe() {
   return (
     <div className="min-h-screen">
       <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
-      <div id="hero+aboutme" className="relative h-[450vh]">
+      <div id="hero+aboutme" className="relative h-[1500vh]">
         <div id="hero" className="fixed inset-0 h-screen w-screen overflow-hidden object-cover">
           <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunPathMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {/* filter for sun shadow */}
