@@ -17,6 +17,8 @@ function AboutMe() {
   const sunMargin = 1.1; // margin between sun edge and viewport edge
   const aboutMeTitleTopPosition = 0.23; // top position of about me title as a fraction of viewport height
   const screenHeightAfterSunTravel = 75; // percentage of screen height scrolled through when sun reaches final position
+  const screenHeightAfterAboutMe = 90; // percentage of screen height scrolled through when about me section is fully visible
+  const screenHeightAfterXTranslate = 95; // percentage of screen height scrolled through when pfp and bio finish x translation
   const lenisRef = useRef<any>(null)
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
   const [sunPathMargin, setSunPathMargin] = React.useState<number>(0); // margin to offset sun travel path position
@@ -130,7 +132,91 @@ function AboutMe() {
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `${screenHeightAfterSunTravel}% bottom`,
+          end: `${screenHeightAfterAboutMe}% bottom`,
+          scrub: true,
+        },
+      },
+    );
+
+    // animation for photoframe to move to the left
+    gsap.to(
+      "#pfp",
+      {
+        x: "-20%",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#hero+aboutme",
+          start: `${screenHeightAfterAboutMe}% bottom`,
+          end: `${screenHeightAfterXTranslate}% bottom`,
+          scrub: true,
+        },
+      },
+    );
+    // animation for bio to move to the right
+    gsap.to(
+      "#bio",
+      {
+        x: "50%",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#hero+aboutme",
+          start: `${screenHeightAfterAboutMe}% bottom`,
+          end: `${screenHeightAfterXTranslate}% bottom`,
+          scrub: true,
+        },
+      },
+    );
+
+    gsap.to(
+      "#aboutme",
+      {
+        scale: 3,
+        transformOrigin: "center 60%",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#hero+aboutme",
+          start: `${screenHeightAfterAboutMe}% bottom`,
+          end: `bottom bottom`,
+          scrub: true,
+        },
+      },
+    );
+
+    gsap.fromTo(
+      "#experience-title",
+      {
+        // opacity: 1,
+        scale: 0.6,
+        transformOrigin: "center center"
+      },
+      {
+        // opacity: 1,
+        scale: 100,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#hero+aboutme",
+          start: `${screenHeightAfterXTranslate}% bottom`,
           end: "bottom bottom",
+          scrub: true,
+        },
+      },
+    );
+
+    gsap.fromTo(
+      "#experience-title",
+      {
+        opacity: 0,
+        // scale: 0.1,
+        // transformOrigin: "center center"
+      },
+      {
+        opacity: 1,
+        // scale: 100,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#hero+aboutme",
+          start: `${screenHeightAfterXTranslate - 1}% bottom`,
+          end: `${screenHeightAfterXTranslate}% bottom`,
           scrub: true,
         },
       },
@@ -214,16 +300,16 @@ function AboutMe() {
             }}
           >
             {/* aboutme content appears once title zooms in */}
-            <div style={{paddingTop: `${aboutMeTitleTopPosition * 100}vh`}}>
+            <div style={{paddingTop: `${aboutMeTitleTopPosition * 100 + 2}vh`}}>
               <div className="flex justify-center items-center gap-x-10 p-8 px-10">
-                <Image src="/photoframe.webp" alt="Profile Photo" width={500} height={500} className="" />
+                <Image id="pfp" src="/photoframe.webp" alt="Profile Photo" width={500} height={500} className="" />
 
-                <div className="z-50 flex flex-col gap-y-4 text-2xl max-w-1/2">
+                <div id="bio" className="z-50 flex flex-col gap-y-4 text-2xl max-w-[50%]">
                   <p>
-                    Hey!! My name is Joanna and I’m a <span className="text-fg-aboutme-purple">CS</span> student at the <span className="text-fg-aboutme-purple">University of Waterloo</span>.
+                    Hey!! My name is Joanna and I&apos;m a <span className="text-fg-aboutme-purple">CS</span> student at the <span className="text-fg-aboutme-purple">University of Waterloo</span>.
                   </p>
                   <p>
-                    I love going to <span className="text-fg-aboutme-purple">hackathons</span>, and I’m an active contributor to <span className="text-fg-aboutme-purple">open source software</span>.
+                    I love going to <span className="text-fg-aboutme-purple">hackathons</span>, and I&apos;m an active contributor to <span className="text-fg-aboutme-purple">open source software</span>.
                   </p>
                   <p>
                     In my spare time, I love to go cycling, read and cook comfort meals.
@@ -254,6 +340,11 @@ function AboutMe() {
                 </text>
               </mask>
             </svg>
+          </div>
+          <div>
+            <p id="experience-title" className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl font-bold text-bg-exp font-title-impact pointer-events-none z-50" style={{opacity: 0, WebkitTextStroke: '2px var(--blue)'}}>
+              Experience
+            </p>
           </div>
         </div>
       </div>
