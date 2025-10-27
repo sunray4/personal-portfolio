@@ -31,8 +31,8 @@ export default function Home() {
         root 
         options={{ autoRaf: false }} 
         ref={lenisRef}>  
-      <AboutMe />
-      <Experience />
+        <AboutMe />
+        <Experience />
       </ReactLenis>    
     </div>
   );

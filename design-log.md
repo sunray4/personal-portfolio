@@ -72,6 +72,8 @@ I did not realize that the several fonts that I was using in my design couldn't 
 ###### Time spent: ~45 min
 ![design image](assets/design-log-16.png)
 
+### 23th Oct 2025
+
 I realized that the current color of the sun in the hero section doesnt really look that great, so I experimented with some different colors to choose a new color.
 ###### Time spent: ~7 min
 ![design image](assets/design-log-17.png)

@@ -136,6 +136,30 @@ function AboutMe() {
         },
       },
     );
+    // animation above and below are definitely clashing
+    // glitch is because aboutme suddently becomes scale 400 at `${screenHeightBeforeExperienceTitle + 2}% bottom`,
+    // when animation below gets triggered
+    // then as i keep scrolling, the aboutme scales down to 75 as specified in the animation below
+    
+    // animation for aboutme section scaling up for experience title to cover screen
+    gsap.to(
+      "#aboutme",
+      // {
+      //   scale: 1,
+      //   transformOrigin: "center center", // works when its .to()
+      // },
+      {
+        scale: 75,
+        transformOrigin: "center 60%",
+        ease: "power2.in",
+        scrollTrigger: {
+          trigger: "#hero+aboutme",
+          start: `${screenHeightBeforeExperienceTitle + 2}% bottom`, // notable discrepancy - starting at 
+          end: `90% bottom`,
+          scrub: true,
+        },
+      },
+    );
 
     // animation for photoframe to move to the left
     gsap.to(
@@ -151,6 +175,7 @@ function AboutMe() {
         },
       },
     );
+
     // animation for bio to move to the right
     gsap.to(
       "#bio",
@@ -166,21 +191,9 @@ function AboutMe() {
       },
     );
 
-    gsap.to(
-      "#aboutme",
-      {
-        scale: 75,
-        transformOrigin: "center 60%",
-        ease: "power2.in",
-        scrollTrigger: {
-          trigger: "#hero+aboutme",
-          start: `${screenHeightBeforeExperienceTitle + 4}% bottom`,
-          end: `90% bottom`,
-          scrub: true,
-        },
-      },
-    );
+ 
 
+    // animation for experience title scaling and covering screen
     gsap.fromTo(
       "#experience-title",
       {
@@ -189,31 +202,17 @@ function AboutMe() {
       },
       {
         scale: 85,
-        lazy: false,
         ease: "power2.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: `${screenHeightBeforeExperienceTitle + 4}% bottom`,
+          start: `${screenHeightBeforeExperienceTitle + 2}% bottom`,
           end: "90% bottom",
           scrub: true,
         },
       },
     );
 
-    gsap.to(
-      "#experience-title",
-      {
-        opacity: 1,
-        ease: "power1.out",
-        scrollTrigger: {
-          trigger: "#hero+aboutme",
-          start: `${screenHeightBeforeExperienceTitle + 5}% bottom`,
-          end: `${screenHeightBeforeExperienceTitle + 6}% bottom`,
-          scrub: true,
-        },
-      },
-    );
-
+    // animation for experience title x translation to cover screen
     gsap.to(
       "#experience-title",
       {
@@ -227,7 +226,22 @@ function AboutMe() {
         },
       },
     );
-    
+
+
+    // animation for experience title fade in
+    gsap.to(
+      "#experience-title",
+      {
+        opacity: 1,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: "#hero+aboutme",
+          start: `${screenHeightBeforeExperienceTitle + 2}% bottom`,
+          end: `${screenHeightBeforeExperienceTitle + 3}% bottom`,
+          scrub: true,
+        },
+      },
+    );
 
     // Make aboutme section instantly visible when scrollTrigger becomes active
     gsap.set("#aboutme", { autoAlpha: 1 });
