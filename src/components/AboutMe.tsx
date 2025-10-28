@@ -38,7 +38,7 @@ function AboutMe() {
         path: "#sun-travel-path-svg",
         align: "#sun-travel-path-svg",
         alignOrigin: [0.5, 0.5],
-        start: 0.15,
+        start: 0,
         end: 1 - calculateSafeEndpoint({ sunScale, sunMargin, sunElement, pathElement }),
       },
       keyframes: [
@@ -121,35 +121,34 @@ function AboutMe() {
       }
     });
 
-    // animation for transition into aboutme section
+    // animation for aboutme section scaling down to normal size in hero to aboutme transition
     gsap.fromTo(
       "#aboutme",
-      { scale: 400, transformOrigin: `center ${aboutMeTitleTopPosition * 100}%` },
+      {
+        scale: 400,
+        transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
+      },
       {
         scale: 1,
         ease: "power2.out",
-        lazy: false,
         scrollTrigger: {
-          trigger: "#hero+aboutme",
+          trigger: "#hero + #aboutme", 
           start: `${screenHeightAfterSunTravel}% bottom`,
           end: `${screenHeightAfterAboutMe}% bottom`,
           scrub: true,
         },
-      },
+      }
     );
-    // animation above and below are definitely clashing
-    // glitch is because aboutme suddently becomes scale 400 at `${screenHeightBeforeExperienceTitle + 2}% bottom`,
-    // when animation below gets triggered
-    // then as i keep scrolling, the aboutme scales down to 75 as specified in the animation below
     
     // animation for aboutme section scaling up for experience title to cover screen
-    gsap.to(
+    gsap.fromTo(
       "#aboutme",
-      // {
-      //   scale: 1,
-      //   transformOrigin: "center center", // works when its .to()
-      // },
       {
+        scale: 1,
+        transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`, // works when its .to()
+      },
+      {
+        immediateRender: false,
         scale: 75,
         transformOrigin: "center 60%",
         ease: "power2.in",
