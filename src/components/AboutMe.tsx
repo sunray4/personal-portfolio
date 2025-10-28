@@ -59,7 +59,7 @@ function AboutMe() {
       fill: "var(--yellow)",
       scrollTrigger: {
         trigger: "#hero+aboutme",
-        start: "5% top",
+        start: "7% top",
         end: `${screenHeightAfterSunTravel}% bottom`,
         scrub: true,
       },
@@ -74,7 +74,7 @@ function AboutMe() {
         lazy: false,
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: "5% top",
+          start: "7% top",
           end: `${screenHeightAfterSunTravel}% bottom`,
           scrub: true,
         },
@@ -121,45 +121,49 @@ function AboutMe() {
       }
     });
 
-    // animation for aboutme section scaling down to normal size in hero to aboutme transition
-    gsap.fromTo(
-      "#aboutme",
-      {
-        scale: 400,
-        transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
-      },
-      {
-        scale: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: "#hero + #aboutme", 
-          start: `${screenHeightAfterSunTravel}% bottom`,
-          end: `${screenHeightAfterAboutMe}% bottom`,
-          scrub: true,
+    // animation for aboutme section scaling
+    gsap.to("#aboutme", {
+      keyframes: [
+        {
+          scale: 230,
+          transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
+          duration: 0,
         },
-      }
-    );
-    
-    // animation for aboutme section scaling up for experience title to cover screen
-    gsap.fromTo(
-      "#aboutme",
-      {
-        scale: 1,
-        transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`, // works when its .to()
-      },
-      {
-        immediateRender: false,
-        scale: 75,
-        transformOrigin: "center 60%",
-        ease: "power2.in",
-        scrollTrigger: {
-          trigger: "#hero+aboutme",
-          start: `${screenHeightBeforeExperienceTitle + 2}% bottom`, // notable discrepancy - starting at 
-          end: `90% bottom`,
-          scrub: true,
+        {
+          scale: 230,
+          transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
+          duration: 0.4, // 0% to 40% (holds at 230)
         },
+        {
+          scale: 1,
+          transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
+          duration: 0.15, // 40% to 55% (scales down to 1)
+          ease: "power1.out",
+        },
+        {
+          scale: 1,
+          transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
+          duration: 0.12, // 55% to 67% (holds at 1)
+        },
+        {
+          scale: 75,
+          transformOrigin: `center 60%`,
+          duration: 0.23, // 67% to 90% (scales up to 75)
+          ease: "power2.in",
+        },
+        {
+          scale: 75,
+          transformOrigin: `center 60%`,
+          duration: 0.1, // 90% to 100% (holds at 75)
+        },
+      ],
+      scrollTrigger: {
+        trigger: "#hero+aboutme",
+        start: `top top`,
+        end: `bottom bottom`,
+        scrub: true,
       },
-    );
+    });
 
     // animation for photoframe to move to the left
     gsap.to(
@@ -190,8 +194,6 @@ function AboutMe() {
         },
       },
     );
-
- 
 
     // animation for experience title scaling and covering screen
     gsap.fromTo(
@@ -252,10 +254,10 @@ function AboutMe() {
 
   
   return (
-    <div ref={containerRef} className="min-h-screen" style={{opacity: 1}}>
+    <div ref={containerRef} className="">
       
       <div  id="hero+aboutme" className="relative h-[1500vh]">
-        <div id="hero" className="fixed inset-0 h-screen w-screen overflow-hidden object-cover">
+        <div id="hero" className="sticky inset-0 h-screen w-screen overflow-hidden object-cover">
           <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunPathMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {/* filter for sun shadow */}
             <defs>
