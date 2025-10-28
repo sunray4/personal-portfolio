@@ -71,7 +71,6 @@ function AboutMe() {
       { attr: { "flood-color": "#E95757" } },
       {
         attr: { "flood-color": "#BAA433" },
-        lazy: false,
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: "7% top",
@@ -210,6 +209,7 @@ function AboutMe() {
           start: `${screenHeightBeforeExperienceTitle + 2}% bottom`,
           end: "90% bottom",
           scrub: true,
+          pin: true,
         },
       },
     );
@@ -223,8 +223,9 @@ function AboutMe() {
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `90% bottom`,
-          end: `98% bottom`,
+          end: `bottom bottom`,
           scrub: true,
+          pin: true,
         },
       },
     );
@@ -254,9 +255,8 @@ function AboutMe() {
 
   
   return (
-    <div ref={containerRef} className="">
-      
-      <div  id="hero+aboutme" className="relative h-[1500vh]">
+    <div ref={containerRef} className="sticky">
+      <div  id="hero+aboutme" className="h-[1500vh]">
         <div id="hero" className="sticky inset-0 h-screen w-screen overflow-hidden object-cover">
           <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunPathMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {/* filter for sun shadow */}
