@@ -18,7 +18,7 @@ function AboutMe() {
   const sunMargin = 1.1; // margin between sun edge and viewport edge
   const aboutMeTitleTopPosition = 0.23; // top position of about me title as a fraction of viewport height
   const screenHeightAfterSunTravel = 40; // percentage of screen height scrolled through when sun reaches final position
-  const screenHeightAfterAboutMe = 55; // percentage of screen height scrolled through when about me section is fully visible
+  const screenHeightAfterAboutMe = 60; // percentage of screen height scrolled through when about me section is fully visible
   const screenHeightBeforeExperienceTitle = 65; // percentage of screen height scrolled through before experience title starts appearing
   const screenHeightAfterXTranslate = 75; // percentage of screen height scrolled through when pfp and bio finish x translation
   const [nameColor, setNameColor] = React.useState<string>("#fafafa");
@@ -124,14 +124,14 @@ function AboutMe() {
     gsap.to("#aboutme", {
       keyframes: [
         {
-          scale: 230,
+          scale: 150,
           transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
           duration: 0,
         },
         {
-          scale: 230,
+          scale: 120,
           transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
-          duration: screenHeightAfterSunTravel / 100, // 0% to 40% (holds at 230)
+          duration: screenHeightAfterSunTravel / 100, // 0% to 40% (scales down to 120)
         },
         {
           scale: 1,
@@ -142,12 +142,12 @@ function AboutMe() {
         {
           scale: 1,
           transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
-          duration: ((screenHeightBeforeExperienceTitle + 2) - screenHeightAfterAboutMe) / 100, // 55% to 67% (holds at 1)
+          duration: (screenHeightBeforeExperienceTitle - screenHeightAfterAboutMe) / 100, // 55% to 65% (holds at 1)
         },
         {
           scale: 75,
           transformOrigin: `center 60%`,
-          duration: (90 - (screenHeightBeforeExperienceTitle + 2)) / 100, // 67% to 90% (scales up to 75)
+          duration: (90 - screenHeightBeforeExperienceTitle) / 100, // 65% to 90% (scales up to 75)
           ease: "power2.in",
         },
         {
@@ -322,7 +322,7 @@ function AboutMe() {
           >
             {/* aboutme content appears once title zooms in */}
             <div style={{paddingTop: `${aboutMeTitleTopPosition * 100 + 2}vh`}}>
-              <div className="flex justify-center items-center gap-x-10 p-8 px-10">
+              <div className="flex justify-center items-center gap-x-5 p-4 px-10">
                 <Image id="pfp" src="/photoframe.webp" alt="Profile Photo" width={500} height={500} className="" />
 
                 <div id="bio" className="z-50 flex flex-col gap-y-4 text-2xl max-w-[50%]">
