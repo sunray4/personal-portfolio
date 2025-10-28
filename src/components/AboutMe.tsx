@@ -304,8 +304,8 @@ function AboutMe() {
             <p id="name" className="text-3xl" style={{ color: nameColor, opacity: 0 }}>Joanna Lau</p>
           </div>
           {/* mountains at the bottom */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-5">
-            <Mountains id="mountains-svg" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-5 w-screen">
+            <Mountains id="mountains-svg" width="fit" />
           </div>
           
           {/* about me overlay on top of hero */}
