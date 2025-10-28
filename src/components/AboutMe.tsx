@@ -132,23 +132,23 @@ function AboutMe() {
         {
           scale: 230,
           transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
-          duration: 0.4, // 0% to 40% (holds at 230)
+          duration: screenHeightAfterSunTravel / 100, // 0% to 40% (holds at 230)
         },
         {
           scale: 1,
           transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
-          duration: 0.15, // 40% to 55% (scales down to 1)
-          ease: "power1.out",
+          duration: (screenHeightAfterAboutMe - screenHeightAfterSunTravel) / 100, // 40% to 55% (scales down to 1)
+          ease: "power2.out",
         },
         {
           scale: 1,
           transformOrigin: `center ${aboutMeTitleTopPosition * 100}%`,
-          duration: 0.12, // 55% to 67% (holds at 1)
+          duration: ((screenHeightBeforeExperienceTitle + 2) - screenHeightAfterAboutMe) / 100, // 55% to 67% (holds at 1)
         },
         {
           scale: 75,
           transformOrigin: `center 60%`,
-          duration: 0.23, // 67% to 90% (scales up to 75)
+          duration: (90 - (screenHeightBeforeExperienceTitle + 2)) / 100, // 67% to 90% (scales up to 75)
           ease: "power2.in",
         },
         {
@@ -223,7 +223,7 @@ function AboutMe() {
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `90% bottom`,
-          end: `bottom bottom`,
+          end: `98% bottom`,
           scrub: true,
         },
       },
