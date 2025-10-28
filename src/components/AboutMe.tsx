@@ -246,6 +246,26 @@ function AboutMe() {
       },
     );
 
+    // animation for scroll prompt fade in
+    gsap.to("#scroll-prompt", {
+      opacity: 1,
+      duration: 2,
+      ease: "power1.out",
+    });
+
+    // animation for scroll prompt fade out on scroll
+    gsap.to("#scroll-prompt", {
+      opacity: 0,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#hero+aboutme",
+        start: `5% top`,
+        end: `22% top`,
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+
     // Make aboutme section instantly visible when scrollTrigger becomes active
     gsap.set("#aboutme", { autoAlpha: 1 });
 
@@ -300,8 +320,9 @@ function AboutMe() {
             </g>
           </svg>
           {/* name */}
-          <div className="absolute top-[30%] left-0 w-screen flex justify-center z-10">
+          <div className="absolute top-[30%] left-0 w-screen flex flex-col justify-center items-center z-10">
             <p id="name" className="text-3xl" style={{ color: nameColor, opacity: 0 }}>Joanna Lau</p>
+            <p id="scroll-prompt" className="font-light mt-2 italic" style={{ color: nameColor, opacity: 0 }}>Scroll down to see more!!</p>
           </div>
           {/* mountains at the bottom */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-5 w-screen">
