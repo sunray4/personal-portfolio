@@ -255,7 +255,7 @@ function AboutMe() {
 
   
   return (
-    <div ref={containerRef} className="sticky">
+    <div ref={containerRef}>
       <div  id="hero+aboutme" className="h-[1500vh]">
         <div id="hero" className="sticky inset-0 h-screen w-screen overflow-hidden object-cover">
           <svg className="absolute inset-0 overflow-visible" style={{ top: `${sunPathMargin}rem` }} preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -311,7 +311,7 @@ function AboutMe() {
           {/* about me overlay on top of hero */}
           <div
             id="aboutme"
-            className="fixed inset-0 h-screen pointer-events-none z-40 bg-bg-aboutme"
+            className="sticky inset-0 h-screen pointer-events-none z-20 bg-bg-aboutme"
             style={{
               opacity: 0,
               maskImage: "url(#title-mask)",
@@ -363,7 +363,7 @@ function AboutMe() {
             </svg>
           </div>
           <div>
-            <p id="experience-title" className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl font-bold text-bg-exp font-title-impact pointer-events-none z-50" style={{opacity: 0, WebkitTextStroke: '2px var(--blue)'}}>
+            <p id="experience-title" className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl font-bold text-bg-exp font-title-impact pointer-events-none z-22" style={{opacity: 0, WebkitTextStroke: '2px var(--blue)'}}>
               Experience
             </p>
           </div>
