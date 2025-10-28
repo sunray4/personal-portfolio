@@ -38,11 +38,11 @@ function AboutMe() {
         path: "#sun-travel-path-svg",
         align: "#sun-travel-path-svg",
         alignOrigin: [0.5, 0.5],
-        start: 0,
+        start: 0.15,
         end: 1 - calculateSafeEndpoint({ sunScale, sunMargin, sunElement, pathElement }),
       },
       keyframes: [
-        { scale: 0.5, duration: 0, ease: "power2.out" },
+        { scale: 0.8, duration: 0, ease: "power2.out" },
         { scale: 1, duration: 0.5, ease: "power2.inOut" },
         { scale: sunScale, duration: 0.5, ease: "power2.in" },
       ],
@@ -59,7 +59,7 @@ function AboutMe() {
       fill: "var(--yellow)",
       scrollTrigger: {
         trigger: "#hero+aboutme",
-        start: "7% top",
+        start: "5% top",
         end: `${screenHeightAfterSunTravel}% bottom`,
         scrub: true,
       },
@@ -74,7 +74,7 @@ function AboutMe() {
         lazy: false,
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: "7% top",
+          start: "5% top",
           end: `${screenHeightAfterSunTravel}% bottom`,
           scrub: true,
         },
@@ -84,9 +84,10 @@ function AboutMe() {
     // animation for background color change
     gsap.to("#hero", {
       backgroundColor: "var(--blue)",
+      ease: "power1.out",
       scrollTrigger: {
         trigger: "#hero+aboutme",
-        start: "3% top",
+        start: "top top",
         end: `${screenHeightAfterSunTravel}% bottom`,
         scrub: true,
       },
