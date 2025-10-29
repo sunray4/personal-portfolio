@@ -22,7 +22,7 @@ function ExpCard({startTime, endTime, role, company, description, location, imag
 
     return (
         <div className='my-10 flex justify-between w-full'>
-            <div id='timeline-item' className='flex justify-between items-center w-45'>
+            <div id='timeline-item' className='flex flex-shrink-0 justify-between items-center w-47'>
                 <Sun height={60} />
                 <div id='duration' className='flex flex-col items-center text-2xl gap-y-0'>
                     <p className='-mb-2'>{endTime}</p>
@@ -30,7 +30,7 @@ function ExpCard({startTime, endTime, role, company, description, location, imag
                     <p className='-mt-2'>{startTime}</p>
                 </div>
             </div>
-            <div id='exp-details' className='flex flex-col justify-center items-start mt-4 ml-20  w-2/3'>
+            <div id='exp-details' className='flex flex-col justify-center items-start mt-4 ml-20 w-2/3'>
                 <div className='flex justify-between items-end w-full'>
                     <p className='flex gap-x-2 items-end text-yellow'>
                         <span className='font-title-bold text-3xl'>{company}</span>
