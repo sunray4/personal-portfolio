@@ -2,6 +2,7 @@
 
 import React from "react";
 import Mountains from "../assets/mountains.svg";
+import ScrollPrompt from "../assets/scroll-prompt.svg";
 import gsap from 'gsap'
 import { ScrollTrigger, MotionPathPlugin, SplitText } from "gsap/all";
 import { getContrastColor } from "../utils/contrastColor";
@@ -169,7 +170,7 @@ function AboutMe() {
       "#pfp",
       {
         x: "-40%",
-        ease: "power2.out",
+        ease: "power1.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `${screenHeightBeforeExperienceTitle}% bottom`,
@@ -184,7 +185,7 @@ function AboutMe() {
       "#bio",
       {
         x: "70%",
-        ease: "power2.out",
+        ease: "power1.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `${screenHeightBeforeExperienceTitle}% bottom`,
@@ -198,7 +199,7 @@ function AboutMe() {
     gsap.fromTo(
       "#experience-title",
       {
-        scale: 0.2,
+        scale: 0.04,
         transformOrigin: "center center"
       },
       {
@@ -206,7 +207,7 @@ function AboutMe() {
         ease: "power2.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: `${screenHeightBeforeExperienceTitle + 2}% bottom`,
+          start: `${screenHeightBeforeExperienceTitle + 4}% bottom`,
           end: "90% bottom",
           scrub: true,
           pin: true,
@@ -219,7 +220,7 @@ function AboutMe() {
       "#experience-title",
       {
         x: "-230%",
-        ease: "power1.out",
+        ease: "power1.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `90% bottom`,
@@ -230,39 +231,32 @@ function AboutMe() {
       },
     );
 
-
     // animation for experience title fade in
     gsap.to(
       "#experience-title",
       {
         opacity: 1,
-        ease: "power1.out",
+        ease: "power2.in",
         scrollTrigger: {
           trigger: "#hero+aboutme",
-          start: `${screenHeightBeforeExperienceTitle + 2}% bottom`,
-          end: `${screenHeightBeforeExperienceTitle + 3}% bottom`,
+          start: `${screenHeightBeforeExperienceTitle + 4}% bottom`,
+          end: `${screenHeightBeforeExperienceTitle + 5}% bottom`,
           scrub: true,
         },
       },
     );
 
-    // animation for scroll prompt fade in
+    // animation for scroll prompt to fade in and out
     gsap.to("#scroll-prompt", {
-      opacity: 1,
-      duration: 2,
-      ease: "power1.out",
-    });
-
-    // animation for scroll prompt fade out on scroll
-    gsap.to("#scroll-prompt", {
-      opacity: 0,
-      ease: "power1.out",
+      keyframes: [
+        { scale: 0, opacity: 0, duration: 0 },
+        { scale: 1, opacity: 1, duration: 1, ease: "power1.out" },
+        { scale: 0, opacity: 0, duration: 1, ease: "power1.in", delay: 4 },
+      ],
       scrollTrigger: {
         trigger: "#hero+aboutme",
-        start: `10% top`,
-        end: `35% top`,
-        scrub: true,
-        invalidateOnRefresh: true,
+        start: "top top",
+        toggleActions: "play none none none",
       },
     });
 
@@ -322,12 +316,12 @@ function AboutMe() {
           {/* name */}
           <div className="absolute top-[30%] left-0 w-screen flex flex-col justify-center items-center z-10">
             <p id="name" className="text-3xl" style={{ color: nameColor, opacity: 0 }}>Joanna Lau</p>
-            <p id="scroll-prompt" className="font-light mt-2 italic" style={{ color: nameColor, opacity: 0 }}>Scroll down to see more!!</p>
           </div>
           {/* mountains at the bottom */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-5 w-screen">
             <Mountains id="mountains-svg" width="fit" />
           </div>
+          <ScrollPrompt id="scroll-prompt" className="absolute bottom-15 left-20 z-10 opacity-0" width={200}/>
           
           {/* about me overlay on top of hero */}
           <div
