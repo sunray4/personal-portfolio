@@ -70,7 +70,7 @@ function AboutMe() {
       ".sun-flood",
       { attr: { "flood-color": "#E95757" } },
       {
-        attr: { "flood-color": "#BAA433" },
+        attr: { "flood-color": "#F1D74F" },
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: "7% top",
@@ -259,8 +259,8 @@ function AboutMe() {
       ease: "power1.out",
       scrollTrigger: {
         trigger: "#hero+aboutme",
-        start: `5% top`,
-        end: `22% top`,
+        start: `10% top`,
+        end: `35% top`,
         scrub: true,
         invalidateOnRefresh: true,
       },
