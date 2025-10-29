@@ -12,11 +12,13 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <Resume className="cursor-pointer" height={iconSize} />
+            <a href="https://drive.google.com/file/d/1GmUBOc2hIYmZ8aBxf5QfEf16hP2nxVK5/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+              <Resume className="cursor-pointer" height={iconSize} />
+            </a>
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Content className="TooltipContent" side="bottom">
-              View my resume
+              Resume
               <Tooltip.Arrow className="TooltipArrow" />
             </Tooltip.Content>
           </Tooltip.Portal>
@@ -25,7 +27,9 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <Linkedin className="cursor-pointer" height={iconSize} />
+            <a href="https://www.linkedin.com/in/joanna-lau-286789292" target="_blank" rel="noopener noreferrer">
+              <Linkedin className="cursor-pointer" height={iconSize} />
+            </a>
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Content className="TooltipContent" side="bottom">
@@ -38,7 +42,9 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <Github className="cursor-pointer" height={iconSize} />
+            <a href="https://github.com/sunray4" target="_blank" rel="noopener noreferrer">
+              <Github className="cursor-pointer" height={iconSize} />
+            </a>
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Content className="TooltipContent" side="bottom">
@@ -51,7 +57,9 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <Mail className="cursor-pointer" height={iconSize} />
+            <a href="mailto:joannalau04@gmail.com" target="_blank" rel="noopener noreferrer">
+              <Mail className="cursor-pointer" height={iconSize} />
+            </a>
           </Tooltip.Trigger>
           <Tooltip.Portal>
             <Tooltip.Content className="TooltipContent" side="bottom">
