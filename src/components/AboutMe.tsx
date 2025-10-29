@@ -13,7 +13,7 @@ import Image from "next/image";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, MotionPathPlugin, SplitText);
 
-function AboutMe() {
+function AboutMe({ visible, setVisible }: { visible: boolean; setVisible: React.Dispatch<React.SetStateAction<boolean>> }) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const sunScale = 0.5; // final size of sun svg
   const sunMargin = 1.1; // margin between sun edge and viewport edge
@@ -224,9 +224,8 @@ function AboutMe() {
         scrollTrigger: {
           trigger: "#hero+aboutme",
           start: `90% bottom`,
-          end: `bottom bottom`,
+          end: `99% bottom`,
           scrub: true,
-          pin: true,
         },
       },
     );
@@ -260,6 +259,15 @@ function AboutMe() {
 
     // Make sun instantly visible when scrollTrigger becomes active
     gsap.set("#sun-svg", { autoAlpha: 1 });
+
+    ScrollTrigger.create({
+      trigger: "hero+aboutme",
+      start: "97% bottom",
+      end: "98% bottom",
+      onLeave: () => setVisible(true),
+      onEnterBack: () => setVisible(false),
+      onLeaveBack: () => setVisible(true),
+    });
   }, { scope: containerRef, dependencies: [] });
 
   
@@ -321,7 +329,7 @@ function AboutMe() {
           {/* about me overlay on top of hero */}
           <div
             id="aboutme"
-            className="sticky inset-0 h-screen pointer-events-none z-20 bg-bg-aboutme"
+            className="absolute inset-0 h-screen pointer-events-none z-20 bg-bg-aboutme"
             style={{
               opacity: 0,
               maskImage: "url(#title-mask)",

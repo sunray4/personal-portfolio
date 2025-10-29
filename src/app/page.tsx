@@ -12,6 +12,7 @@ gsap.registerPlugin(useGSAP);
 export default function Home() {
   const lenisRef = useRef<LenisRef>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = React.useState(false);
   
   useGSAP(() => {
     function update(time: number) {
@@ -31,8 +32,11 @@ export default function Home() {
         root 
         options={{ autoRaf: false }} 
         ref={lenisRef}>  
-        <AboutMe />
-        <Experience />
+        <AboutMe visible={visible} setVisible={setVisible} />
+        {
+          visible && <Experience />
+        }
+        
       </ReactLenis>    
     </div>
   );
