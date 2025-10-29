@@ -7,7 +7,6 @@ export const expData = [
         description: "Contributed 1100+ lines of merged code to Daffodil, an open source ecommerce development framework with 360+ stars on GitHub.",
         location: "Richmond, VA",
         image: { src: "/daffodil.webp", alt: "Daffodil" },
-        imageHeight: 254,
 
     },
     {
@@ -18,7 +17,6 @@ export const expData = [
         description: "Member of ground station software subteam. Developing and designing the frontend of the Mission Control Centre software.",
         location: "Waterloo, ON",
         image: { src: "/orbital.webp", alt: "UW Orbital" },
-        imageHeight: 254,
     },
     {
         startTime: "Feb 2024",
@@ -28,6 +26,5 @@ export const expData = [
         description: "Conducted UI/UX research to inform design decisions for a meal planning app with 1M+ Google Play downloads. Edited 1000+ Chinese-English lexical translations to support multilingual software.",
         location: "Vancouver, BC",
         image: { src: "/samsung-food.webp", alt: "Samsung Food" },
-        imageHeight: 254,
     },
 ]

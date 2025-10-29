@@ -2,10 +2,11 @@ import React, { useEffect, useState, useRef } from 'react'
 import Sun from '../assets/sun.svg'
 import Image from 'next/image'
 
-function ExpCard({startTime, endTime, role, company, description, location, image, imageHeight}: {startTime: string, endTime?: string, role: string, company: string, description: string, location: string, image: {src: string, alt: string}, imageHeight: number}) {
+function ExpCard({startTime, endTime, role, company, description, location, image}: {startTime: string, endTime?: string, role: string, company: string, description: string, location: string, image: {src: string, alt: string}}) {
     const [height, setHeight] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
     const imageWidth = 842; // Original image width for aspect ratio calculation
+    const imageHeight = 254; // Original image height for aspect ratio calculation
     
     useEffect(() => {
         const handleResize = () => {

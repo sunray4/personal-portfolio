@@ -22,7 +22,6 @@ function Experience() {
             description={exp.description}
             location={exp.location}
             image={exp.image}
-            imageHeight={exp.imageHeight}
           />
         ))
       }
