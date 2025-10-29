@@ -253,11 +253,6 @@ function AboutMe() {
         { scale: 1, opacity: 1, duration: 1, ease: "power1.out" },
         { scale: 0, opacity: 0, duration: 1, ease: "power1.in", delay: 4 },
       ],
-      scrollTrigger: {
-        trigger: "#hero+aboutme",
-        start: "top top",
-        toggleActions: "play none none none",
-      },
     });
 
     // Make aboutme section instantly visible when scrollTrigger becomes active
