@@ -4,12 +4,12 @@ import Image from 'next/image'
 
 function ProjectCard({project: {title, description, link, tech, image}} : {project: ProjDataInterface}) {
   return (
-    <div className='flex flex-col w-full md:w-1/2 text-lg pr-7 group md:max-h-[488px]'>
+    <div className='flex flex-col w-full md:w-1/2 pr-7 group md:max-h-[488px]'>
       <a href={link} target="_blank" rel="noopener noreferrer">
         <Image src={image.src} alt={image.alt} width={800} height={400} className="object-contain rounded-md transition-all duration-300 group-hover:drop-shadow-[0_0_20px_rgba(199,199,199,0.5)]" />
-        <div className='flex justify-between items-center mt-4 tracking-tight'>
-          <p className='text-3xl font-title-bold text-yellow transition-all duration-300 group-hover:underline tracking-tighter'>{title}</p>
-          <p className='text-blue text-base ml-4'>
+        <div className='flex justify-between items-center mt-3 tracking-tight'>
+          <p className='text-2xl font-title-bold text-yellow transition-all duration-300 group-hover:underline tracking-tighter'>{title}</p>
+          <p className='text-blue ml-4'>
             {
               tech.map((techItem, index) => (
                 <React.Fragment key={index}>
@@ -20,7 +20,7 @@ function ProjectCard({project: {title, description, link, tech, image}} : {proje
             }
           </p>
         </div>
-        <p className='text-fg-proj-pink mt-2'>{description}</p>
+        <p className='text-fg-proj-pink mt-1'>{description}</p>
       </a>
     </div>
   )

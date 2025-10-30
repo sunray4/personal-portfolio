@@ -7,6 +7,7 @@ import { ReactLenis, type LenisRef } from 'lenis/react'
 import React, { useRef } from "react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import Footer from '@/components/Footer';
 
 gsap.registerPlugin(useGSAP);
 
@@ -35,10 +36,12 @@ export default function Home() {
         ref={lenisRef}>  
         <AboutMe visible={visible} setVisible={setVisible} />
         {
-          visible && <Experience />
-        }
-        {
-          visible && <Projects />
+          visible && 
+          <>
+            <Experience />
+            <Projects />
+            <Footer />
+          </>
         }
       </ReactLenis>    
     </div>

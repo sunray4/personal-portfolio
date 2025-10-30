@@ -38,7 +38,7 @@ function ExpCard({exp: {startTime, endTime, role, company, description, location
                         <span className='text-2xl font-exp-role'>-</span>
                         <span className='italic text-2xl font-exp-role'>{role}</span>
                     </p>
-                    <p className='text-lg text-gray-300'>{location}</p>
+                    <p className='text-lg'>{location}</p>
                 </div>
                 <p className='text-lg mt-2'>{description}</p>
                 <div ref={containerRef} className="relative w-full mt-4 flex-shrink-0" style={{height: `${height}px`}}>

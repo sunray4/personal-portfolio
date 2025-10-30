@@ -51,7 +51,7 @@ body {
 	padding: 7px 10px;
 	font-size: 15px;
 	line-height: 1;
-	color: var(--blue);
+	color: inherit;
 	background-color: rgba(255, 255, 255, 0.2);
 	box-shadow:
 		hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
