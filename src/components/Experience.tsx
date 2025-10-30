@@ -1,7 +1,7 @@
 import React from 'react'
 import ExpIcons from './ExpIcons'
 import ExpCard from './ExpCard'
-import { expData } from '@/data/exp-data'
+import { expData } from '@/data/expData'
 
 function Experience() {
   
@@ -15,13 +15,7 @@ function Experience() {
         expData.map((exp, index) => (
           <ExpCard 
             key={index}
-            startTime={exp.startTime}
-            endTime={exp.endTime}
-            role={exp.role}
-            company={exp.company}
-            description={exp.description}
-            location={exp.location}
-            image={exp.image}
+            exp={exp}
           />
         ))
       }

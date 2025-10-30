@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { ExpDataInterface } from '@/data/expData'
 import Sun from '../assets/sun.svg'
 import Image from 'next/image'
 
-function ExpCard({startTime, endTime, role, company, description, location, image}: {startTime: string, endTime?: string, role: string, company: string, description: string, location: string, image: {src: string, alt: string}}) {
+function ExpCard({exp: {startTime, endTime, role, company, description, location, image}}: {exp: ExpDataInterface}) {
     const [height, setHeight] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
     const imageWidth = 842; // Original image width for aspect ratio calculation
@@ -31,13 +32,13 @@ function ExpCard({startTime, endTime, role, company, description, location, imag
                 </div>
             </div>
             <div id='exp-details' className='flex flex-col justify-center items-start mt-4 ml-20 w-2/3'>
-                <div className='flex justify-between items-end w-full'>
+                <div className='flex justify-between items-center w-full'>
                     <p className='flex gap-x-2 items-end text-yellow'>
                         <span className='font-title-bold text-3xl'>{company}</span>
-                        <span className='text-2xl'>-</span>
-                        <span className='italic text-2xl'>{role}</span>
+                        <span className='text-2xl font-exp-role'>-</span>
+                        <span className='italic text-2xl font-exp-role'>{role}</span>
                     </p>
-                    <p className='text-lg'>{location}</p>
+                    <p className='text-lg text-gray-300'>{location}</p>
                 </div>
                 <p className='text-lg mt-2'>{description}</p>
                 <div ref={containerRef} className="relative w-full mt-4 flex-shrink-0" style={{height: `${height}px`}}>

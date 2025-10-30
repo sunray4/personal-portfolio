@@ -2,6 +2,7 @@
 
 import AboutMe from '@/components/AboutMe';
 import Experience from '@/components/Experience';
+import Projects from '@/components/Projects';
 import { ReactLenis, type LenisRef } from 'lenis/react'
 import React, { useRef } from "react";
 import gsap from 'gsap';
@@ -36,7 +37,9 @@ export default function Home() {
         {
           visible && <Experience />
         }
-        
+        {
+          visible && <Projects />
+        }
       </ReactLenis>    
     </div>
   );

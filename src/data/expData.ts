@@ -1,4 +1,17 @@
-export const expData = [
+export interface ExpDataInterface {
+    startTime: string;
+    endTime: string;
+    role: string;
+    company: string;
+    description: string;
+    location: string;
+    image: {
+        src: string;
+        alt: string;
+    };
+}
+
+export const expData: ExpDataInterface[] = [
     {
         startTime: "Sept 2025",
         endTime: "Present",
