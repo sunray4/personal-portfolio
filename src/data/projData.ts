@@ -19,7 +19,7 @@ export const projData: ProjDataInterface[] = [
     },
     {
         title: "Personal Portfolio",
-        description: "This website!! I built this to be an immerse journey through my technical experiences, blending aesthetic smooth scroll animations with well-structured content.",
+        description: "This website!! I built this to be an immerse journey through my technical experiences with aesthetic smooth scroll animations.",
         link: "https://github.com/sunray4/personal-portfolio",
         tech: ["Nestjs", "Tailwind CSS", "Sketch", "GSAP", "Lenis"],
         image: { src: "/portfolio-mock.png", alt: "Personal Portfolio" },
@@ -35,7 +35,7 @@ export const projData: ProjDataInterface[] = [
         title: "CodeGPT",
         description: "Generates a line-by-line explanation of any codebase, helping devs understand complex repositories. Best Hack @ MLH Hack for Hackers (55 submissions; team of 3).",
         link: "https://github.com/sunray4/codegpt",
-        tech: ["Flask", "Python", "Hugging Face", "MongoDB Atlas", "HTML", "Tailwind CSS"],
+        tech: ["Flask", "Python", "Hugging Face", "MongoDB Atlas", "Tailwind CSS"],
         image: { src: "/codegpt-mock.png", alt: "CodeGPT" },
     },
     {
