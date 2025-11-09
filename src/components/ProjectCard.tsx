@@ -8,8 +8,8 @@ function ProjectCard({project: {title, description, link, tech, image}} : {proje
       <a href={link} target="_blank" rel="noopener noreferrer">
         <Image src={image.src} alt={image.alt} width={800} height={400} className="object-contain rounded-md transition-all duration-300 group-hover:drop-shadow-[0_0_20px_rgba(199,199,199,0.5)]" />
         <div className='flex justify-between items-center mt-3 tracking-tight'>
-          <p className='text-2xl font-title-bold text-yellow transition-all duration-300 group-hover:underline tracking-tighter'>{title}</p>
-          <p className='text-blue ml-4'>
+          <p className='text-2xl font-title-bold text-fg-proj-title transition-all duration-300 group-hover:underline tracking-tighter'>{title}</p>
+          <p className='text-fg-proj-highlight ml-4'>
             {
               tech.map((techItem, index) => (
                 <React.Fragment key={index}>
@@ -20,7 +20,7 @@ function ProjectCard({project: {title, description, link, tech, image}} : {proje
             }
           </p>
         </div>
-        <p className='text-fg-proj-pink mt-1'>{description}</p>
+        <p className='text-fg-proj-text mt-1'>{description}</p>
       </a>
     </div>
   )

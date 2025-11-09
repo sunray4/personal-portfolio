@@ -2,15 +2,20 @@
 @import "tailwindcss";
 
 :root {
+  --blue: #A0E0FF;
+  --yellow: #FAE9B2;
+  --sun-red: #F27059;
   --background: #020315;
-  --background-aboutme: #1A0F2E;
-  --blue: #C2FDFC;
-  --yellow: #FFF1A8;
-  --background-exp: #0C1F26;
-  --background-projects: #241A26;
-  --foreground-aboutme-purple: #F0A8FF;
-  --foreground-exp-blue: #A8E4FF;
-  --foreground-projects-pink: #FFAEF0;
+  --background-aboutme: #2c6e49;
+  --background-exp: #d84e33;
+  --background-projects: #50366F;
+  --foreground-aboutme-text: #fefee3;
+  --foreground-aboutme-highlight: #ffc9b9;
+  --foreground-exp-orange: #FAE9B2;
+  --foreground-exp-blue: #A0E0FF;
+  --foreground-projects-text: #A0E0FF;
+  --foreground-projects-highlight: #FFAEF0;
+  --foreground-projects-title: #FAE9B2;
   --font-body: 'Urbanist', sans-serif;
   --font-exp-role: 'Lato', sans-serif;
   --font-title-bold: "Arial Black", "Arial Bold", Gadget, sans-serif;
@@ -24,9 +29,13 @@
   --color-blue: var(--blue);
   --color-bg-exp: var(--background-exp);
   --color-bg-proj: var(--background-projects);
-  --color-fg-aboutme-purple: var(--foreground-aboutme-purple);
+  --color-fg-aboutme-text: var(--foreground-aboutme-text);
+  --color-fg-aboutme-highlight: var(--foreground-aboutme-highlight);
+  --color-fg-exp-orange: var(--foreground-exp-orange);
   --color-fg-exp-blue: var(--foreground-exp-blue);
-  --color-fg-proj-pink: var(--foreground-projects-pink);
+  --color-fg-proj-text: var(--foreground-projects-text);
+  --color-fg-proj-highlight: var(--foreground-projects-highlight);
+  --color-fg-proj-title: var(--foreground-projects-title);
   --font-body: var(--font-body);
   --font-exp-role: var(--font-exp-role);
   --font-title-bold: var(--font-title-bold);

@@ -6,9 +6,9 @@ import { expData } from '@/data/expData'
 function Experience() {
   
   return (
-    <div className='bg-bg-exp text-fg-exp-blue relative z-30 p-20 w-screen pt-0 text-fg-exp-blue'>
-      <p className='w-2/3 text-lg'>
-        I&apos;m a frontend developer passionate about crafting intuitive and immersive software experiences for all kinds of organizations. I focus on creating user interfaces that not only look great but also feel seamless and engaging, turning complex ideas into simple, meaningful digital interactions.
+    <div className='relative z-30 p-20 w-screen pt-0 text-fg-exp-blue' style={{ background: 'linear-gradient(to bottom, var(--background-exp), var(--background-projects))' }}>
+      <p className='w-2/3 text-lg font-medium'>
+        I&apos;m a software developer passionate about crafting intuitive and immersive software experiences. I focus on creating user interfaces that not only look great but also feel seamless and engaging, turning complex workflows into simple, meaningful digital interactions.
       </p>
       <ExpIcons />
       {

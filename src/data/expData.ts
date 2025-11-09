@@ -15,19 +15,9 @@ export const expData: ExpDataInterface[] = [
     {
         startTime: "Sept 2025",
         endTime: "Present",
-        role: "Software Contributor",
-        company: "Daffodil",
-        description: "Contributed 1100+ lines of merged code to Daffodil, an open source ecommerce development framework with 360+ stars on GitHub.",
-        location: "Richmond, VA",
-        image: { src: "/daffodil.webp", alt: "Daffodil" },
-
-    },
-    {
-        startTime: "Sept 2025",
-        endTime: "Present",
-        role: "Software Developer",
+        role: "Software Developer & Project Manager",
         company: "UW Orbital",
-        description: "Member of ground station software subteam. Developing and designing the frontend of the Mission Control Centre software.",
+        description: "Managing frontend software quality and architecture on the ground station software subteam. Developing and designing the frontend of the Mission Control Centre software.",
         location: "Waterloo, ON",
         image: { src: "/orbital.webp", alt: "UW Orbital" },
     },

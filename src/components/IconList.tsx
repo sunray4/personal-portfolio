@@ -16,7 +16,7 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="https://drive.google.com/file/d/1GmUBOc2hIYmZ8aBxf5QfEf16hP2nxVK5/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+            <a href="https://drive.google.com/drive/folders/1DeSDYbqFTuED5JGDVe5SY5Pb87DIBocF?usp=sharing" target="_blank" rel="noopener noreferrer">
               <Resume className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
