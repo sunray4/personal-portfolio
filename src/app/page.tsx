@@ -34,7 +34,7 @@ export default function Home() {
         root 
         options={{ autoRaf: false }} 
         ref={lenisRef}>  
-        <AboutMe visible={visible} setVisible={setVisible} />
+        <AboutMe setVisible={setVisible} />
         {
           visible && 
           <>
