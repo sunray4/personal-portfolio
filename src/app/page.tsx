@@ -1,49 +1,36 @@
 'use client';
 
-import AboutMe from '@/components/AboutMe';
-import Experience from '@/components/Experience';
-import Projects from '@/components/Projects';
-import { ReactLenis, type LenisRef } from 'lenis/react'
-import React, { useRef } from "react";
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import Footer from '@/components/Footer';
+import { useState, useEffect } from 'react';
+import DesktopLayout from './desktop-page';
+import MobileLayout from './mobile-page';
 
-gsap.registerPlugin(useGSAP);
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
 
-export default function Home() {
-  const lenisRef = useRef<LenisRef>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = React.useState(false);
-  
-  useGSAP(() => {
-    function update(time: number) {
-      lenisRef.current?.lenis?.raf(time * 1000);
-    }
-
-    gsap.ticker.add(update);
-
-    return () => {
-      gsap.ticker.remove(update);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); 
     };
-  }, { scope: containerRef, dependencies: [] });
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return isMobile;
+};
+
+const Home = () => {
+  const isMobile = useIsMobile();
 
   return (
-    <div ref={containerRef}>
-      <ReactLenis 
-        root 
-        options={{ autoRaf: false }} 
-        ref={lenisRef}>  
-        <AboutMe setVisible={setVisible} />
-        {
-          visible && 
-          <>
-            <Experience />
-            <Projects />
-            <Footer />
-          </>
-        }
-      </ReactLenis>    
+    <div>
+      {isMobile ? (
+        <MobileLayout />
+      ) : (
+        <DesktopLayout />
+      )}
     </div>
   );
-}
+};
+
+export default Home;

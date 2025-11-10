@@ -50,3 +50,49 @@ function ExpCard({exp: {startTime, endTime, role, company, description, location
 }
 
 export default ExpCard;
+
+function ExpCardMobile({exp: {startTime, endTime, role, company, description, location, image}}: {exp: ExpDataInterface}) {
+    const [height, setHeight] = useState(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const imageWidth = 842; // Original image width for aspect ratio calculation
+    const imageHeight = 254; // Original image height for aspect ratio calculation
+    
+    useEffect(() => {
+        const handleResize = () => {
+            if (containerRef.current) {
+                const containerWidth = containerRef.current.offsetWidth;
+                setHeight(containerWidth / imageWidth * imageHeight);
+            }
+        }
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return (
+        <div className='my-10 flex flex-col justify-between w-full'>
+            <div id='timeline-item' className='flex flex-shrink-0 justify-start items-center gap-x-4'>
+                <Sun height={40} />
+                <p id='duration' className='text-xl font-semibold'>
+                    {endTime} - {startTime}
+                </p>
+            </div>
+            <div id='exp-details' className='flex flex-col justify-center items-start mt-4'>
+                <div className='flex justify-between items-center w-full gap-x-2'>
+                    <p className='flex flex-col gap-x-2 items-start text-yellow'>
+                        <span className='font-title-bold text-xl'>{company}</span>
+                        <span className='text-xl font-exp-role'></span>
+                        <span className='italic text-lg font-exp-role'>{role}</span>
+                    </p>
+                    <p className='text-sm'>{location}</p>
+                </div>
+                <p className='text-sm mt-2'>{description}</p>
+                <div ref={containerRef} className="relative w-full mt-4 flex-shrink-0" style={{height: `${height}px`}}>
+                    <Image src={image.src} alt={image.alt} fill className="object-contain" sizes="(max-width: 768px) 100vw, 66vw" />
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export { ExpCardMobile };
