@@ -41,8 +41,8 @@ function AboutMeMobile() {
       <div
         className="relative p-7 w-screen mt-5"
         style={{
-        background:
-            "linear-gradient(to bottom, var(--background-aboutme), var(--background-exp))",
+          background:
+            "linear-gradient(to bottom, var(--background-aboutme), #4a2f20, var(--background-exp))",
         }}>
       </div>
     </div>
