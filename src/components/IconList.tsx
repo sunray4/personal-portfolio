@@ -8,6 +8,7 @@ import InstaY from "../assets/insta-yellow.svg";
 import LinkedinY from "../assets/linkedin-yellow.svg";
 import GithubY from "../assets/github-yellow.svg";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { mailLink, instagramLink, githubLink, linkedinLink, resumeLink} from "../data/iconLinks";
 
 function ExpIcons() {
   const iconSize = 35;
@@ -16,7 +17,7 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="https://drive.google.com/drive/folders/1DeSDYbqFTuED5JGDVe5SY5Pb87DIBocF?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <a href={resumeLink} target="_blank" rel="noopener noreferrer">
               <Resume className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
@@ -31,7 +32,7 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="https://www.linkedin.com/in/joannalau4" target="_blank" rel="noopener noreferrer">
+            <a href={linkedinLink} target="_blank" rel="noopener noreferrer">
               <Linkedin className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
@@ -46,7 +47,7 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="https://github.com/sunray4" target="_blank" rel="noopener noreferrer">
+            <a href={githubLink} target="_blank" rel="noopener noreferrer">
               <Github className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
@@ -61,7 +62,7 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="mailto:joannalau04@gmail.com" target="_blank" rel="noopener noreferrer">
+            <a href={mailLink} target="_blank" rel="noopener noreferrer">
               <Mail className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
@@ -84,7 +85,7 @@ function FooterIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="mailto:joannalau04@gmail.com" target="_blank" rel="noopener noreferrer">
+            <a href={mailLink} target="_blank" rel="noopener noreferrer">
               <MailY className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
@@ -99,7 +100,7 @@ function FooterIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="https://www.linkedin.com/in/joannalau4" target="_blank" rel="noopener noreferrer">
+            <a href={linkedinLink} target="_blank" rel="noopener noreferrer">
               <LinkedinY className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
@@ -114,7 +115,7 @@ function FooterIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="https://github.com/sunray4" target="_blank" rel="noopener noreferrer">
+            <a href={githubLink} target="_blank" rel="noopener noreferrer">
               <GithubY className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
@@ -129,7 +130,7 @@ function FooterIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="mailto:joannalau04@gmail.com" target="_blank" rel="noopener noreferrer">
+            <a href={instagramLink} target="_blank" rel="noopener noreferrer">
               <InstaY className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>

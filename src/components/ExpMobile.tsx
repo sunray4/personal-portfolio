@@ -1,12 +1,10 @@
 import React from "react";
-import { ExpIcons } from "./IconList";
 import { expData } from "@/data/expData";
 import { ExpCardMobile } from "./ExpCard";
 import Mail from "../assets/mail.svg";
 import Resume from "../assets/resume.svg";
 import Linkedin from "../assets/linkedin.svg";
 import Github from "../assets/github.svg";
-import Link from "next/link";
 
 function ExpMobile() {
   const iconSize = 30;
