@@ -1,6 +1,7 @@
 
 import AboutMeMobile from '@/components/AboutMeMobile'
 import ExpMobile from '@/components/ExpMobile'
+import { FooterMobile } from '@/components/Footer'
 import ProjectMobile from '@/components/ProjectMobile'
 import React from 'react'
 
@@ -10,6 +11,7 @@ function MobileLayout() {
       <AboutMeMobile />
       <ExpMobile />
       <ProjectMobile />
+      <FooterMobile />
     </div>
   )
 }

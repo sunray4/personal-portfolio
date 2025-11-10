@@ -2,8 +2,14 @@ import React from "react";
 import { ExpIcons } from "./IconList";
 import { expData } from "@/data/expData";
 import { ExpCardMobile } from "./ExpCard";
+import Mail from "../assets/mail.svg";
+import Resume from "../assets/resume.svg";
+import Linkedin from "../assets/linkedin.svg";
+import Github from "../assets/github.svg";
+import Link from "next/link";
 
 function ExpMobile() {
+  const iconSize = 30;
   return (
     <div>
       <div
@@ -23,7 +29,20 @@ function ExpMobile() {
           that not only look great but also feel seamless and engaging, turning
           complex workflows into simple, meaningful digital interactions.
         </p>
-        <ExpIcons />
+        <div className="flex justify-start gap-x-1 mt-2">
+            <a href="https://drive.google.com/drive/folders/1DeSDYbqFTuED5JGDVe5SY5Pb87DIBocF?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <Resume className="cursor-pointer" height={iconSize} />
+            </a>
+            <a href="https://www.linkedin.com/in/joannalau4" target="_blank" rel="noopener noreferrer">
+              <Linkedin className="cursor-pointer" height={iconSize} />
+            </a>
+            <a href="https://github.com/sunray4" target="_blank" rel="noopener noreferrer">
+              <Github className="cursor-pointer" height={iconSize} />
+            </a>
+            <a href="mailto:joannalau04@gmail.com" target="_blank" rel="noopener noreferrer">
+              <Mail className="cursor-pointer" height={iconSize} />
+            </a>
+        </div>
         {expData.map((exp, index) => (
           <ExpCardMobile key={index} exp={exp} />
         ))}

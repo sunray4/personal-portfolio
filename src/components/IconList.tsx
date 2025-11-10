@@ -31,7 +31,7 @@ function ExpIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="https://www.linkedin.com/in/joanna-lau-286789292" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/joannalau4" target="_blank" rel="noopener noreferrer">
               <Linkedin className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
@@ -99,7 +99,7 @@ function FooterIcons() {
       <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild data-state="instant-open">
-            <a href="https://www.linkedin.com/in/joanna-lau-286789292" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/joannalau4" target="_blank" rel="noopener noreferrer">
               <LinkedinY className="cursor-pointer" height={iconSize} />
             </a>
           </Tooltip.Trigger>
