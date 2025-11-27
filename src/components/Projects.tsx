@@ -4,7 +4,7 @@ import ProjectCard from './ProjectCard'
 
 function Projects() {
   return (
-    <div className='flex flex-col relative z-30 pl-7 w-screen py-15' style={{ background: 'linear-gradient(to bottom, var(--background-projects), var(--background))' }}>
+    <div id='projects' className='flex flex-col relative z-30 pl-7 w-screen py-15' style={{ background: 'linear-gradient(to bottom, var(--background-projects), var(--background))' }}>
         <div className='flex justify-start w-full items-center'>
             <p className='text-8xl font-title-impact text-blue pr-7'>
                 ⋆ Projects

@@ -8,6 +8,7 @@ import React, { useRef } from "react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import Footer from '@/components/Footer';
+import Nav from '@/components/Nav';
 
 gsap.registerPlugin(useGSAP);
 
@@ -35,6 +36,7 @@ export default function DesktopLayout() {
         options={{ autoRaf: false }} 
         ref={lenisRef}>  
         <AboutMe setVisible={setVisible} />
+        <Nav setVisible={setVisible} />
         {
           visible && 
           <>
